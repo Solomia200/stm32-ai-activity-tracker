@@ -63,8 +63,8 @@ all: main-build
 main-build: right_project.elf secondary-outputs
 
 # Tool invocations
-right_project.elf right_project.map: $(OBJS) $(USER_OBJS) /home/solomia/STM32CubeIDE/workspace_1.19.0/my_store/right_project/STM32L475VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "right_project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/solomia/STM32CubeIDE/workspace_1.19.0/my_store/right_project/STM32L475VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="right_project.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+right_project.elf right_project.map: $(OBJS) $(USER_OBJS) /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/STM32L475VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "right_project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/STM32L475VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="right_project.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

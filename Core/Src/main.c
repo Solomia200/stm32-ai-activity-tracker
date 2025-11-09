@@ -56,9 +56,19 @@ ai_handle network;
 float aiInData[AI_NETWORK_IN_1_SIZE];
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
+
+const uint8_t ACCELEROMETR_SAMPLING_RATE = 20; // sampling rate of the accelerometer in Hz
+const uint8_t ACCELERATION_RANGE = 4; // maximum acceleration value that can be measured in g
+const float ACCELERATION_SCALE_FACTOR = (float) 4000/20; // scale factor to normalize values to a range from -20 to 20
+
+//- Jogging
+//- Stationary
+//- Stairs
+//- Walking
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "stationary", "walking", "running"
+  "Jogging", "Stationary", "Stairs", "Walking"
 };
+
 ai_buffer * ai_input;
 ai_buffer * ai_output;
 /* USER CODE END PV */
@@ -67,7 +77,6 @@ ai_buffer * ai_output;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-
 /* USER CODE BEGIN PFP */
 static void MEMS_Init(void);
 
@@ -78,7 +87,6 @@ static void AI_Run(float *pIn, float *pOut);
 static uint32_t argmax(const float * values, uint32_t len);
 
 /* USER CODE END PFP */
-
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -136,21 +144,23 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-      // printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
+//       printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
 
 
 
       /* Normalize data to [-1; 1] and accumulate into input buffer */
 
       /* Note: window overlapping can be managed here */
+//      printf("x: %d, y: %d, z: %d\n", acc_axes.x , acc_axes.y, acc_axes.z);
 
-      aiInData[write_index + 0] = (float) acc_axes.x / 4000.0f;
+      aiInData[write_index + 0] = (float) acc_axes.x / ACCELERATION_SCALE_FACTOR;
 
-      aiInData[write_index + 1] = (float) acc_axes.y / 4000.0f;
+      aiInData[write_index + 1] = (float) acc_axes.y / ACCELERATION_SCALE_FACTOR;
 
-      aiInData[write_index + 2] = (float) acc_axes.z / 4000.0f;
+      aiInData[write_index + 2] = (float) acc_axes.z / ACCELERATION_SCALE_FACTOR;
 
       write_index += 3;
+
 
 
 
@@ -188,7 +198,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
 
 /**
   * @brief System Clock Configuration
@@ -516,7 +525,6 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
-
 /* USER CODE BEGIN 4 */
 
 static void MEMS_Init(void)
@@ -571,9 +579,9 @@ static void MEMS_Init(void)
 
   /* Configure the LSM6DSL accelerometer (ODR, scale and interrupt) */
 
-  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, 26.0f); /* 26 Hz */
+  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, ACCELEROMETR_SAMPLING_RATE); /* 20 Hz */
 
-  LSM6DSL_ACC_SetFullScale(&MotionSensor, 4);          /* [-4000mg; +4000mg] */
+  LSM6DSL_ACC_SetFullScale(&MotionSensor, ACCELERATION_RANGE);          /* [-4000mg; +4000mg] */
 
   LSM6DSL_ACC_Set_INT1_DRDY(&MotionSensor, ENABLE);    /* Enable DRDY */
 
