@@ -1,3 +1,18 @@
 # Python virtual envirements
 .env
 .venv
+
+# STM32CubeIDE debug configurations (user-specific)
+*.launch
+.metadata/
+.settings/
+.project
+.cproject
+
+# Build artifacts
+Debug/
+Release/
+*.o
+*.elf
+*.hex
+*.bin
