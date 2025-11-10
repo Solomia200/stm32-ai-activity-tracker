@@ -22,10 +22,16 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+BlueNRG_MS/App \
+BlueNRG_MS/Target \
 Core/Src \
 Core/Startup \
 Drivers/BSP/B-L475E-IOT01A1 \
 Drivers/BSP/Components/lsm6dsl \
 Drivers/STM32L4xx_HAL_Driver/Src \
+Middlewares/ST/BlueNRG-MS/hci/controller \
+Middlewares/ST/BlueNRG-MS/hci \
+Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic \
+Middlewares/ST/BlueNRG-MS/utils \
 X-CUBE-AI/App \
 

@@ -29,6 +29,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal.h"
 
+#include "hci_tl_interface.h"
+#include "b_l475e_iot01a1.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -100,8 +102,6 @@ void Error_Handler(void);
 #define ARD_A1_GPIO_Port GPIOC
 #define ARD_A0_Pin GPIO_PIN_5
 #define ARD_A0_GPIO_Port GPIOC
-#define ARD_D3_Pin GPIO_PIN_0
-#define ARD_D3_GPIO_Port GPIOB
 #define ARD_D6_Pin GPIO_PIN_1
 #define ARD_D6_GPIO_Port GPIOB
 #define ARD_D8_Pin GPIO_PIN_2
@@ -164,8 +164,6 @@ void Error_Handler(void);
 #define LSM3MDL_DRDY_EXTI8_Pin GPIO_PIN_8
 #define LSM3MDL_DRDY_EXTI8_GPIO_Port GPIOC
 #define LSM3MDL_DRDY_EXTI8_EXTI_IRQn EXTI9_5_IRQn
-#define LED3_WIFI__LED4_BLE_Pin GPIO_PIN_9
-#define LED3_WIFI__LED4_BLE_GPIO_Port GPIOC
 #define SPBTLE_RF_RST_Pin GPIO_PIN_8
 #define SPBTLE_RF_RST_GPIO_Port GPIOA
 #define USB_OTG_FS_VBUS_Pin GPIO_PIN_9

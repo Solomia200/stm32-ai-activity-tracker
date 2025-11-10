@@ -25,16 +25,25 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_i2c_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
- ../Drivers/BSP/Components/lsm6dsl/lsm6dsl.h \
- ../Drivers/BSP/Components/lsm6dsl/lsm6dsl_reg.h \
+ ../BlueNRG_MS/Target/hci_tl_interface.h \
  ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1_bus.h \
  ../Core/Inc/b_l475e_iot01a1_conf.h \
  ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1_errno.h \
+ ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1.h \
+ ../BlueNRG_MS/App/app_bluenrg_ms.h \
+ ../Drivers/BSP/Components/lsm6dsl/lsm6dsl.h \
+ ../Drivers/BSP/Components/lsm6dsl/lsm6dsl_reg.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network.h \
  ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h \
- ../X-CUBE-AI/App/network_data_params.h
+ ../X-CUBE-AI/App/network_data_params.h ../BlueNRG_MS/App/gatt_db.h \
+ ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_def.h \
+ ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h
 ../Core/Inc/main.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 ../Core/Inc/stm32l4xx_hal_conf.h:
@@ -62,15 +71,25 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_i2c_ex.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h:
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h:
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h:
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h:
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:
-../Drivers/BSP/Components/lsm6dsl/lsm6dsl.h:
-../Drivers/BSP/Components/lsm6dsl/lsm6dsl_reg.h:
+../BlueNRG_MS/Target/hci_tl_interface.h:
 ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1_bus.h:
 ../Core/Inc/b_l475e_iot01a1_conf.h:
 ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1_errno.h:
+../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1.h:
+../BlueNRG_MS/App/app_bluenrg_ms.h:
+../Drivers/BSP/Components/lsm6dsl/lsm6dsl.h:
+../Drivers/BSP/Components/lsm6dsl/lsm6dsl_reg.h:
 ../Middlewares/ST/AI/Inc/ai_platform.h:
 ../X-CUBE-AI/App/network.h:
 ../X-CUBE-AI/App/network_config.h:
 ../X-CUBE-AI/App/network_data.h:
 ../X-CUBE-AI/App/network_data_params.h:
+../BlueNRG_MS/App/gatt_db.h:
+../Middlewares/ST/BlueNRG-MS/includes/bluenrg_def.h:
+../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h:

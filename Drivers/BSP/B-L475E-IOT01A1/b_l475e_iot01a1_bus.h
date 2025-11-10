@@ -45,6 +45,31 @@
   * @{
   */
 
+#define BUS_SPI3_INSTANCE SPI3
+#define BUS_SPI3_SCK_GPIO_PORT GPIOC
+#define BUS_SPI3_SCK_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+#define BUS_SPI3_SCK_GPIO_CLK_DISABLE() __HAL_RCC_GPIOC_CLK_DISABLE()
+#define BUS_SPI3_SCK_GPIO_PIN GPIO_PIN_10
+#define BUS_SPI3_SCK_GPIO_AF GPIO_AF6_SPI3
+#define BUS_SPI3_MISO_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+#define BUS_SPI3_MISO_GPIO_PIN GPIO_PIN_11
+#define BUS_SPI3_MISO_GPIO_PORT GPIOC
+#define BUS_SPI3_MISO_GPIO_CLK_DISABLE() __HAL_RCC_GPIOC_CLK_DISABLE()
+#define BUS_SPI3_MISO_GPIO_AF GPIO_AF6_SPI3
+#define BUS_SPI3_MOSI_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+#define BUS_SPI3_MOSI_GPIO_AF GPIO_AF6_SPI3
+#define BUS_SPI3_MOSI_GPIO_PORT GPIOC
+#define BUS_SPI3_MOSI_GPIO_PIN GPIO_PIN_12
+#define BUS_SPI3_MOSI_GPIO_CLK_DISABLE() __HAL_RCC_GPIOC_CLK_DISABLE()
+
+#ifndef BUS_SPI3_POLL_TIMEOUT
+  #define BUS_SPI3_POLL_TIMEOUT                   0x1000U
+#endif
+/* SPI3 Baud rate in bps  */
+#ifndef BUS_SPI3_BAUDRATE
+   #define BUS_SPI3_BAUDRATE   10000000U /* baud rate of SPIn = 10 Mbps*/
+#endif
+
 #define BUS_I2C2_INSTANCE I2C2
 #define BUS_I2C2_SCL_GPIO_AF GPIO_AF4_I2C2
 #define BUS_I2C2_SCL_GPIO_PORT GPIOB
@@ -79,6 +104,13 @@ typedef struct
   pI2C_CallbackTypeDef  pMspDeInitCb;
 }BSP_I2C_Cb_t;
 #endif /* (USE_HAL_I2C_REGISTER_CALLBACKS == 1U) */
+#if (USE_HAL_SPI_REGISTER_CALLBACKS == 1U)
+typedef struct
+{
+  pSPI_CallbackTypeDef  pMspInitCb;
+  pSPI_CallbackTypeDef  pMspDeInitCb;
+}BSP_SPI_Cb_t;
+#endif /* (USE_HAL_SPI_REGISTER_CALLBACKS == 1U) */
 /**
   * @}
   */
@@ -87,6 +119,7 @@ typedef struct
   * @{
   */
 
+extern SPI_HandleTypeDef hspi3;
 extern I2C_HandleTypeDef hi2c2;
 
 /**
@@ -96,6 +129,18 @@ extern I2C_HandleTypeDef hi2c2;
 /** @addtogroup B_L475E_IOT01A1_BUS_Exported_Functions
   * @{
   */
+
+/* BUS IO driver over SPI Peripheral */
+HAL_StatusTypeDef MX_SPI3_Init(SPI_HandleTypeDef* hspi);
+int32_t BSP_SPI3_Init(void);
+int32_t BSP_SPI3_DeInit(void);
+int32_t BSP_SPI3_Send(uint8_t *pData, uint16_t Length);
+int32_t BSP_SPI3_Recv(uint8_t *pData, uint16_t Length);
+int32_t BSP_SPI3_SendRecv(uint8_t *pTxData, uint8_t *pRxData, uint16_t Length);
+#if (USE_HAL_SPI_REGISTER_CALLBACKS == 1U)
+int32_t BSP_SPI3_RegisterDefaultMspCallbacks (void);
+int32_t BSP_SPI3_RegisterMspCallbacks (BSP_SPI_Cb_t *Callbacks);
+#endif /* (USE_HAL_SPI_REGISTER_CALLBACKS == 1U) */
 
 /* BUS IO driver over I2C Peripheral */
 HAL_StatusTypeDef MX_I2C2_Init(I2C_HandleTypeDef* hi2c);
