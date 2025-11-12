@@ -5,6 +5,9 @@
 # pycache
 __pycache__
 
+# zipped dataset
+*.zip
+
 # STM32CubeIDE debug configurations (user-specific)
 *.launch
 .metadata/
