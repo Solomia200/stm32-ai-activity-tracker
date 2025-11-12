@@ -423,44 +423,44 @@
   ],
   "environment": {
     "generated_model": {
-      "generated_time": "2025-11-09T01:11:21+0200",
+      "generated_time": "2025-11-12T10:59:49+0200",
       "model_files": [
         {
           "name": "network_data_params.h",
-          "signature": "0xd1c17f2cb21971cbedfd5eedf0b98722"
+          "signature": "0xa023a8e028bc64d9ea70bf66eea15a66"
         },
         {
           "name": "network_data_params.c",
-          "signature": "0xd312080b9aef1423bbcbb5f7c4ebfbc7"
+          "signature": "0xeacbb14a2afcf3f1ee841e78b723afa4"
         },
         {
           "name": "network_data.h",
-          "signature": "0x2b5b10197421880009bdd29a1375beaa"
+          "signature": "0xbb133135b9244b86190007ddd13d006f"
         },
         {
           "name": "network_data.c",
-          "signature": "0x82d1bdc93ded35fb1c4dc7e8aaeb27cc"
+          "signature": "0xe51896d98ec9af6fa71fa6616d52e5b9"
         },
         {
           "name": "network_config.h",
-          "signature": "0x91622dbf262b15d28857cb075997bcd4"
+          "signature": "0x8ce2676be3c76133006c69df93f6ee39"
         },
         {
           "name": "network.h",
-          "signature": "0xbd469fa1221014d8ceebf03dab64737c"
+          "signature": "0x7f893a1b87a017809ecba8cb3a047f4b"
         },
         {
           "name": "network.c",
-          "signature": "0x289660e05ef90dc7fdb48e4f52c2290a"
+          "signature": "0x3d1913b80c6cb465b962ac2d7fee730d"
         }
       ],
       "name": "network"
     },
-    "network_signature": "0x06e4002671d60573",
+    "network_signature": "0x22ecd56df303b477",
     "test_name": "",
     "tools": [
       {
-        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/models/gmp_wl_24/gmp_wl_24.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace10680782970302506700674291247068 --output /home/bohdan/.stm32cubemx/network_output",
+        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/models/gmp_wl_24/gmp_wl_24.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace129265795880514027886214585361335 --output /home/bohdan/.stm32cubemx/network_output",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],

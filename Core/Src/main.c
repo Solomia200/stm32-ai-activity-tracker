@@ -57,8 +57,8 @@ float aiInData[AI_NETWORK_IN_1_SIZE];
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
-const uint8_t ACCELEROMETR_SAMPLING_RATE = 20; // sampling rate of the accelerometer in Hz
-const uint8_t ACCELERATION_RANGE = 4; // maximum acceleration value that can be measured in g
+const uint8_t ACCELEROMETR_SAMPLING_RATE = 52; // sampling rate of the accelerometer in Hz
+const uint8_t ACCELERATION_RANGE = 16; // maximum acceleration value that can be measured in g
 const float ACCELERATION_SCALE_FACTOR = (float) 4000/20; // scale factor to normalize values to a range from -20 to 20
 
 //- Jogging
@@ -66,7 +66,7 @@ const float ACCELERATION_SCALE_FACTOR = (float) 4000/20; // scale factor to norm
 //- Stairs
 //- Walking
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "Jogging", "Stationary", "Stairs", "Walking"
+  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
 };
 
 ai_buffer * ai_input;
