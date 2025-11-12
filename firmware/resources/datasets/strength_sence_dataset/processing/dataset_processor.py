@@ -21,28 +21,27 @@ class DatasetProcessor:
         "RC": 2 # Right Shin
     }
 
-    # 1 - Walking
-    # 2 - Transition between positions
-    # 3 - Greet cammera with hands
-    # 4 - Opening a bottle of water, pouring water into a glass, and drinking
-    # 5 - Stairs
-    # 6 - Push-ups
-    # 7 - Sit-ups
-    # 8 - Squats
+    # 0 - Walking
+    # 1 - Transition between positions
+    # 2 - Opening a bottle of water, pouring water into a glass, and drinking
+    # 3 - Stairs
+    # 4 - Push-ups
+    # 5 - Sit-ups
+    # 6 - Squats
     CLASSES_MAPPING = {
-        1: 1, # Walking
-        2: 2, # Transition between positions
-        3: 1, # Walking
-        4: 1, # Walking
-        5: 2, # Transition between positions
-        6: 2, # Transition between positions
-        7: 2, # Transition between positions
+        1: 0, # Walking
+        2: 1, # Transition between positions
+        3: 2, # Walking
+        4: 0, # Walking
+        5: 1, # Transition between positions
+        6: 1, # Transition between positions
+        7: 1, # Transition between positions
         8: None, # Greet cammera with hands
-        9: 3, # Opening a bottle of water, pouring water into a glass, and drinking
-        10: 4, # Stairs
-        11: 5, # Push-ups
-        12: 6, # Sit-ups
-        13: 7  # Squats
+        9: 2, # Opening a bottle of water, pouring water into a glass, and drinking
+        10: 3, # Stairs
+        11: 4, # Push-ups
+        12: 5, # Sit-ups
+        13: 6  # Squats
     }
 
     @staticmethod

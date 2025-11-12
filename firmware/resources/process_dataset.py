@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Command-line helper to process the Strength-Sence dataset and save as numpy arrays.
 
 Usage examples:
@@ -12,12 +11,7 @@ directory path it will be created (parents=True) if missing. The saved files wil
 from __future__ import annotations
 
 import argparse
-# import sys
 from pathlib import Path
-
-# # Ensure imports work when running this script from a different CWD
-# SCRIPT_DIR = Path(__file__).resolve().parent
-# sys.path.insert(0, str(SCRIPT_DIR))
 
 from datasets.strength_sence_dataset.processing.dataset_processor import DatasetProcessor
 from datasets.strength_sence_dataset.processing.numpy_array_processor import NumpyArrayProcessor
@@ -36,7 +30,6 @@ def parse_args() -> argparse.Namespace:
         ),
     )
 
-    # Short aliases added: -l/--sensor-location, -s/--sensor, -r/--sampling-rate, -t/--target-sampling-rate
     p.add_argument("-sl", "--sensor-location", default="CHS", help="Sensor location code (default: CHS)")
     p.add_argument("-s", "--sensor", default="Acc", help="Sensor name (default: Acc)")
     p.add_argument("-wl", "--window-length", type=int, default=48, help="Window length (default: 48)")
@@ -65,7 +58,6 @@ def main() -> int:
     print(f"Processing dataset at: {dataset_path}")
     print(f"Sensor location: {args.sensor_location}, sensor: {args.sensor}")
 
-    # try:
     samples, labels = DatasetProcessor.process_dataset(
         path_to_dataset=dataset_path,
         sensor_location=args.sensor_location,
@@ -75,15 +67,8 @@ def main() -> int:
         sampling_rate=args.sampling_rate,
         target_sampling_rate=args.target_sampling_rate,
     )
-    # except Exception as exc:
-    #     print(f"Error while processing dataset: {exc}")
-    #     return 3
 
-    # try:
     NumpyArrayProcessor.save_dataset(str(out_dir), samples, labels)
-    # except Exception as exc:
-    #     print(f"Failed to save dataset to '{out_dir}': {exc}")
-    #     return 4
 
     print(f"Saved dataset to: {out_dir} (files: samples.npy, labels.npy)")
     print(f"Samples shape: {getattr(samples, 'shape', None)}, Labels shape: {getattr(labels, 'shape', None)}")

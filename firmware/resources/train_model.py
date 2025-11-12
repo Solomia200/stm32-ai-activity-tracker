@@ -15,20 +15,15 @@ from __future__ import annotations
 import argparse
 import importlib.util
 from pathlib import Path
-import sys
 
 import numpy as np
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.utils import to_categorical
-from sklearn.model_selection import train_test_split
 
 from datasets.strength_sence_dataset.processing.numpy_array_processor import NumpyArrayProcessor
-from model_evaluation.plot_training import save_training_plots
-from model_evaluation.evaluate_model import evaluate_model
+from training.train_model import train_model
 
 
 def load_get_model(path: str):
-    """Load a callable get_model (or get_gmp) from a Python file path.
+    """Load a callable get_model from a Python file path.
 
     Returns the function object.
     """
@@ -44,9 +39,7 @@ def load_get_model(path: str):
 
     if hasattr(module, "get_model"):
         return getattr(module, "get_model")
-    if hasattr(module, "get_gmp"):
-        return getattr(module, "get_gmp")
-    raise AttributeError("Provided module does not define get_model() or get_gmp()")
+    raise AttributeError("Provided module does not define get_model()")
 
 
 def parse_args() -> argparse.Namespace:
@@ -72,89 +65,32 @@ def main() -> int:
     dataset_path = args.dataset_path
     name = args.name
 
-    # Load dataset
     print(f"Loading dataset from: {dataset_path}")
     X, y = NumpyArrayProcessor.load_dataset(dataset_path)
 
-    # If labels start at 1, shift to 0-based
-    if y.min() == 1:
-        y = y - 1
-
     num_classes = int(np.unique(y).size)
     input_shape = (*(X.shape[1:]), 1)
-    print(input_shape, num_classes)
     print(f"Dataset samples: {X.shape}, labels: {y.shape}, classes: {num_classes}")
+    print(f"Input shape: {input_shape}")
 
-    # Load get_model function
     print(f"Loading get_model from: {get_model_path}")
     get_model = load_get_model(get_model_path)
 
-    # Build model
-    model = get_model(input_shape=input_shape, num_classes=num_classes)
-    optimizer = Adam(learning_rate=args.lr)
-    model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"]) 
-
-    # Split dataset: first separate test set, then validation from remaining
-    if not (0.0 <= args.test_size < 1.0 and 0.0 <= args.val_size < 1.0):
-        print("val-size and test-size must be between 0 and 1")
-        return 2
-
-    X_trainval, X_test, y_trainval, y_test = train_test_split(
-        X, y, test_size=args.test_size, random_state=42, shuffle=True
-    )
-
-    # compute relative validation size w.r.t remaining data
-    remaining = 1.0 - args.test_size
-    if remaining <= 0:
-        print("test-size too large")
-        return 2
-    val_relative = args.val_size / remaining
-
-    X_train, X_val, y_train, y_val = train_test_split(
-        X_trainval, y_trainval, test_size=val_relative, random_state=42, shuffle=True
-    )
-
-    # One-hot encode
-    y_train_o = to_categorical(y_train, num_classes=num_classes)
-    y_val_o = to_categorical(y_val, num_classes=num_classes)
-    y_test_o = to_categorical(y_test, num_classes=num_classes)
-
-    # Prepare output folders
-    out_root = Path(args.output_root)
-    out_dir = out_root / f"train-{name}"
-    training_plots_dir = out_dir / "training-path"
-    evaluation_dir = out_dir / "evaluation"
-
-    out_dir.mkdir(parents=True, exist_ok=True)
-    training_plots_dir.mkdir(parents=True, exist_ok=True)
-    evaluation_dir.mkdir(parents=True, exist_ok=True)
-
-    # Train
-    print(f"Training model, epochs={args.epochs}, batch_size={args.batch_size}")
-    history = model.fit(
-        X_train, y_train_o,
-        validation_data=(X_val, y_val_o),
+    train_model(
+        get_model_func=get_model,
+        X=X,
+        y=y,
+        name=name,
+        out_root=args.output_root,
+        lr=args.lr,
+        val_size=args.val_size,
+        test_size=args.test_size,
         epochs=args.epochs,
         batch_size=args.batch_size,
-        shuffle=True,
     )
 
-    # Save model as .h5
-    h5_path = out_dir / f"{name}.h5"
-    print(f"Saving model to {h5_path}")
-    model.save(str(h5_path))
-
-
-    # Save training plots
-    print(f"Saving training plots to {training_plots_dir}")
-    save_training_plots(history, str(training_plots_dir))
-
-    # Evaluate on test set and save results
-    print(f"Evaluating model on test set and saving to {evaluation_dir}")
-    evaluate_model(model, X_test, y_test_o, str(evaluation_dir))
-
-    print(f"Training complete. Outputs in: {out_dir}")
     return 0
+
 
 
 if __name__ == "__main__":
