@@ -43,22 +43,24 @@ class DatasetProcessor:
     @staticmethod
     def __resample_dataframe(df: DataFrame, sampling_rate: float=52, target_sampling_rate: float=20):
         df = utils.resample_dataframe(df, sampling_rate, target_sampling_rate)
+        return df
 
     @classmethod
-    def process_file(cls, path_to_dataset: str, sensor_position: str, sensor: str, sampling_rate: float=52, target_sampling_rate: float=20) -> DataFrame:
+    def process_file(cls, path_to_dataset: str, sensor_position: str, sensor: str, resample: bool=False, sampling_rate: float=52, target_sampling_rate: float=20) -> DataFrame:
         df = cls.__read_file(path_to_dataset, sensor_position, sensor)
         cls.__interpolate_dataframe(df)
-        df = cls.__resample_dataframe(df, sampling_rate, target_sampling_rate)
-        df = cls.__normalize_dataframe(df, sampling_rate, target_sampling_rate)
+        if resample:
+            df = cls.__resample_dataframe(df, sampling_rate, target_sampling_rate)
+        df = cls.__normalize_dataframe(df)
         return df
 
     @staticmethod
-    def get_windows(df: DataFrame) -> NDArray:
-        windows = utils.split_to_windows(df=df, window_length=48)
+    def get_windows(df: DataFrame, window_length: int) -> NDArray:
+        windows = utils.split_to_windows(df=df, window_length=window_length)
         return windows
 
     @classmethod
-    def process_dataset(cls, path_to_dataset: str, sensor_location: str, sensor: str, sampling_rate: float=52, target_sampling_rate: float=20) -> tuple[NDArray, NDArray]:
+    def process_dataset(cls, path_to_dataset: str, sensor_location: str, sensor: str, window_length: int=48, resample: bool=False, sampling_rate: float=52, target_sampling_rate: float=20) -> tuple[NDArray, NDArray]:
         laptop_num: int = cls.BODY_LOCATION_MAPPING[sensor_location]
 
         base_path = pathlib.Path(path_to_dataset)
@@ -69,9 +71,9 @@ class DatasetProcessor:
         labels = []
         for file in files:
             print(file)
-            df = cls.process_file(file, sensor_location, sensor, sampling_rate, target_sampling_rate)
+            df = cls.process_file(file, sensor_location, sensor, resample, sampling_rate, target_sampling_rate)
 
-            windows = cls.get_windows(df)
+            windows = cls.get_windows(df, window_length)
             samples.extend(windows)
 
             label = int(activity_search_pattern.search(file.stem).group(1))
@@ -82,18 +84,18 @@ class DatasetProcessor:
 
 
 
-if __name__ == "__main__":
-    # file = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength-sence-dataset/dataset/subject1/laptop1/IMU9/s1_a1(w)_t1_u.csv"
-    dataset = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength_sence_dataset/dataset-csv/"
+# if __name__ == "__main__":
+#     # file = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength-sence-dataset/dataset/subject1/laptop1/IMU9/s1_a1(w)_t1_u.csv"
+#     dataset = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength_sence_dataset/dataset-csv/"
 
-    pd.set_option("display.max_rows", None)
-    pd.set_option("display.max_columns", None)
-    pd.set_option("display.width", None)
-    pd.set_option("display.max_colwidth", None)
-    # print(DatasetProcessor.get_windows(df))
-    samples, labels = DatasetProcessor.process_dataset(dataset, "CHS", "Acc")
-    NumpyArrayProcessor.save_dataset("dataset-np-array-no-resampling", samples, labels)
-    samples_loaded, labels_loaded = NumpyArrayProcessor.load_dataset("dataset-np-array-no-resampling")
-    print(len(samples_loaded))
-    assert np.array_equal(samples, samples_loaded)
-    assert np.array_equal(labels, labels_loaded)
+#     pd.set_option("display.max_rows", None)
+#     pd.set_option("display.max_columns", None)
+#     pd.set_option("display.width", None)
+#     pd.set_option("display.max_colwidth", None)
+#     # print(DatasetProcessor.get_windows(df))
+#     samples, labels = DatasetProcessor.process_dataset(dataset, "CHS", "Acc")
+#     NumpyArrayProcessor.save_dataset("dataset-np-array-no-resampling", samples, labels)
+#     samples_loaded, labels_loaded = NumpyArrayProcessor.load_dataset("dataset-np-array-no-resampling")
+#     print(len(samples_loaded))
+#     assert np.array_equal(samples, samples_loaded)
+#     assert np.array_equal(labels, labels_loaded)

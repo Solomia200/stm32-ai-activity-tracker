@@ -10,9 +10,9 @@ import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 from datasets.strength_sence_dataset.processing.numpy_array_processor import NumpyArrayProcessor
-from evaluate_model import evaluate_model
+from model_evaluation.evaluate_model import evaluate_model
 # from models.gmp_wl_24.gmp import get_gmp
-from models.our_model.gmp_our import get_gmp
+from models.our_model.get_model import get_gmp
 
 
 def get_model(path_to_model: str):
@@ -73,53 +73,6 @@ def get_model(path_to_model: str):
     save_training_plots(history, "models/our_model/our_model_training_history")
     new_model.save("models/our_model/our_model.h5")
     evaluate_model(new_model, X_test, y_test, "models/our_model/our_model_metrics")
-
-
-def save_training_plots(history, save_dir):
-    """
-    Save training and validation loss and accuracy plots from Keras History object.
-
-    Parameters
-    ----------
-    history : keras.callbacks.History
-        The History object returned by model.fit().
-    save_dir : str
-        Path to directory where plots will be saved. Will be created if it does not exist.
-    """
-    # Ensure directory exists
-    os.makedirs(save_dir, exist_ok=True)
-    
-    # Plot Loss
-    plt.figure()
-    plt.plot(history.history['loss'], label='train_loss')
-    if 'val_loss' in history.history:
-        plt.plot(history.history['val_loss'], label='val_loss')
-    plt.title('Model Loss')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.grid(True)
-    loss_path = os.path.join(save_dir, 'loss.png')
-    plt.savefig(loss_path)
-    plt.close()
-    
-    # Plot Accuracy
-    plt.figure()
-    if 'accuracy' in history.history:
-        plt.plot(history.history['accuracy'], label='train_accuracy')
-    if 'val_accuracy' in history.history:
-        plt.plot(history.history['val_accuracy'], label='val_accuracy')
-    plt.title('Model Accuracy')
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy')
-    plt.legend()
-    plt.grid(True)
-    acc_path = os.path.join(save_dir, 'accuracy.png')
-    plt.savefig(acc_path)
-    plt.close()
-    
-    print(f"Plots saved in directory: {save_dir}")
-
 
 if __name__ == "__main__":
     path_to_model = "models/gmp_wl_24/recompiled_gmp_wl_24.h5"
