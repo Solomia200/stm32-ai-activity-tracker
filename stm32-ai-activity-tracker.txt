@@ -1,6 +1,6 @@
-Configuration	right_project
+Configuration	stm32-ai-activity-tracker
 STM32CubeMX 	6.15.0
-Date	10/08/2025
+Date	11/12/2025
 MCU	STM32L475VGTx
 
 
@@ -191,8 +191,8 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 SOFTWARE PROJECT
 
 Project Settings : 
-Project Name : right_project
-Project Folder : /home/solomia/STM32CubeIDE/workspace_1.19.0/my_store/right_project
+Project Name : stm32-ai-activity-tracker
+Project Folder : /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker
 Toolchain / IDE : STM32CubeIDE
 Firmware Package Name and Version : STM32Cube FW_L4 V1.18.1
 
