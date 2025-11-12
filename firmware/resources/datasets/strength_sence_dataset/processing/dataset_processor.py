@@ -3,9 +3,9 @@ import pandas as pd
 from pandas import DataFrame
 import numpy as np
 from numpy.typing import NDArray
-import utils
+from . import utils
 import pathlib
-from numpy_array_processor import NumpyArrayProcessor
+
 
 class DatasetProcessor:
     BODY_LOCATION_MAPPING: dict[str: int] = { # 1 for upper locations, 2 for lower 
@@ -19,6 +19,30 @@ class DatasetProcessor:
         "RT": 2, # Right Thigh
         "LC": 2, # Left Shin
         "RC": 2 # Right Shin
+    }
+
+    # 1 - Walking
+    # 2 - Transition between positions
+    # 3 - Greet cammera with hands
+    # 4 - Opening a bottle of water, pouring water into a glass, and drinking
+    # 5 - Stairs
+    # 6 - Push-ups
+    # 7 - Sit-ups
+    # 8 - Squats
+    CLASSES_MAPPING = {
+        1: 1, # Walking
+        2: 2, # Transition between positions
+        3: 1, # Walking
+        4: 1, # Walking
+        5: 2, # Transition between positions
+        6: 2, # Transition between positions
+        7: 2, # Transition between positions
+        8: None, # Greet cammera with hands
+        9: 3, # Opening a bottle of water, pouring water into a glass, and drinking
+        10: 4, # Stairs
+        11: 5, # Push-ups
+        12: 6, # Sit-ups
+        13: 7  # Squats
     }
 
     @staticmethod
@@ -72,30 +96,15 @@ class DatasetProcessor:
         for file in files:
             print(file)
             df = cls.process_file(file, sensor_location, sensor, resample, sampling_rate, target_sampling_rate)
+            label = int(activity_search_pattern.search(file.stem).group(1))
+            label = cls.CLASSES_MAPPING[label]
+            if label is None:
+                continue
 
             windows = cls.get_windows(df, window_length)
             samples.extend(windows)
 
-            label = int(activity_search_pattern.search(file.stem).group(1))
-            file_labels = np.full(shape=len(windows), fill_value=label) 
+            file_labels = np.full(shape=len(windows), fill_value=label)
             labels.extend(file_labels)
         
         return np.array(samples), np.array(labels)
-
-
-
-# if __name__ == "__main__":
-#     # file = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength-sence-dataset/dataset/subject1/laptop1/IMU9/s1_a1(w)_t1_u.csv"
-#     dataset = "/home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/datasets/strength_sence_dataset/dataset-csv/"
-
-#     pd.set_option("display.max_rows", None)
-#     pd.set_option("display.max_columns", None)
-#     pd.set_option("display.width", None)
-#     pd.set_option("display.max_colwidth", None)
-#     # print(DatasetProcessor.get_windows(df))
-#     samples, labels = DatasetProcessor.process_dataset(dataset, "CHS", "Acc")
-#     NumpyArrayProcessor.save_dataset("dataset-np-array-no-resampling", samples, labels)
-#     samples_loaded, labels_loaded = NumpyArrayProcessor.load_dataset("dataset-np-array-no-resampling")
-#     print(len(samples_loaded))
-#     assert np.array_equal(samples, samples_loaded)
-#     assert np.array_equal(labels, labels_loaded)

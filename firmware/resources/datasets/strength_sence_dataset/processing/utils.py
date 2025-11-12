@@ -1,6 +1,8 @@
 import pandas as pd
 import scipy as sp
+import numpy as np
 from numpy.typing import NDArray
+
 
 def _resample_series(col: pd.Series, initial_sampling_rate: float, target_sampling_rate: float) -> pd.Series:
     n_old = len(col)
@@ -20,8 +22,14 @@ def resample_dataframe(df: pd.DataFrame, initial_sampling_rate: int, target_samp
 def split_to_windows(df: pd.DataFrame, window_length: int) -> NDArray:
     n_samples = len(df)
     n_windows = n_samples // window_length
-    trimmed = df.to_numpy()[:window_length*n_windows]
-    windows = trimmed.reshape(n_windows, window_length, 3) # 3 is number of axes of accelerometer
+
+    if n_windows == 0:
+        n_axes = df.shape[1] if getattr(df, "shape", None) and df.shape[1] is not None else 3
+        return np.empty((0, window_length, n_axes))
+
+    trimmed = df.to_numpy()[: window_length * n_windows]
+    n_axes = trimmed.shape[1]
+    windows = trimmed.reshape(n_windows, window_length, n_axes)  # axes last
     return windows
 
 def normalize_to_wisdm(val: float) -> float:

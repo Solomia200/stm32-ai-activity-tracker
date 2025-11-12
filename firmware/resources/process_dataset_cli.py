@@ -20,7 +20,7 @@ from pathlib import Path
 # sys.path.insert(0, str(SCRIPT_DIR))
 
 from datasets.strength_sence_dataset.processing.dataset_processor import DatasetProcessor
-from datasets.strength_sence_dataset.processing.dataset_processor import NumpyArrayProcessor
+from datasets.strength_sence_dataset.processing.numpy_array_processor import NumpyArrayProcessor
 
 
 def parse_args() -> argparse.Namespace:
