@@ -1,6 +1,6 @@
 ST Edge AI Core v2.2.0-20266 2adc00962
-Created date          : 2025-11-12 13:25:22
-Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/models/our_model/our_model.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace80424142869213136821996134878672 --output /home/bohdan/.stm32cubemx/network_output
+Created date          : 2025-11-12 14:03:36
+Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/models/our_model/our_model.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace103371586555004154539413308489712 --output /home/bohdan/.stm32cubemx/network_output
 
 Exec/report summary (generate)
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ compression        :   none
 options            :   allocate-inputs, allocate-outputs                                                                                    
 optimization       :   balanced                                                                                                             
 target/series      :   stm32l4                                                                                                              
-workspace dir      :   /tmp/mxAI_workspace80424142869213136821996134878672                                                                  
+workspace dir      :   /tmp/mxAI_workspace103371586555004154539413308489712                                                                 
 output dir         :   /home/bohdan/.stm32cubemx/network_output                                                                             
 model_fmt          :   float                                                                                                                
 model_name         :   our_model                                                                                                            

@@ -15,8 +15,6 @@ dataset-csv
 *.launch
 .metadata/
 .settings/
-.project
-.cproject
 
 # Build artifacts
 Debug/

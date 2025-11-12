@@ -750,44 +750,44 @@
   ],
   "environment": {
     "generated_model": {
-      "generated_time": "2025-11-12T13:25:21+0200",
+      "generated_time": "2025-11-12T14:03:36+0200",
       "model_files": [
         {
           "name": "network_data_params.h",
-          "signature": "0x68a7262ce83858234898491e180d9d67"
+          "signature": "0x20178fdb608fd19ac2b621382a1f7216"
         },
         {
           "name": "network_data_params.c",
-          "signature": "0x2aa8716e90dcb57c0cb6c1adecf8a42a"
+          "signature": "0xd0dd3ea2c576ede75e161a35ce5b6a50"
         },
         {
           "name": "network_data.h",
-          "signature": "0x145931a5e9fb98c7f31511d1d9218778"
+          "signature": "0xb78854768cbaae1a1457efe96491217e"
         },
         {
           "name": "network_data.c",
-          "signature": "0x9316e7192596f447f6c8e35fe9ac7a37"
+          "signature": "0x0853421335680286b3f713bb2566ebdf"
         },
         {
           "name": "network_config.h",
-          "signature": "0xa7423a2bc0addaaca60960226b700820"
+          "signature": "0xbdd6fe10ba64a0a8dfdda046329301ec"
         },
         {
           "name": "network.h",
-          "signature": "0xcb3d977e7835e8d4394f651de67d9daa"
+          "signature": "0x0d1718e66e87e991e1415aa869903e86"
         },
         {
           "name": "network.c",
-          "signature": "0x53c8ca1733b0ef79a9bc5cdc48bb691a"
+          "signature": "0x43a57b153637e3350aa9c439e513587b"
         }
       ],
       "name": "network"
     },
-    "network_signature": "0x11572e666c27fe4f",
+    "network_signature": "0x316d06429b0bb749",
     "test_name": "",
     "tools": [
       {
-        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/models/our_model/our_model.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace80424142869213136821996134878672 --output /home/bohdan/.stm32cubemx/network_output",
+        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/resources/models/our_model/our_model.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace103371586555004154539413308489712 --output /home/bohdan/.stm32cubemx/network_output",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],
