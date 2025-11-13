@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network_data.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    2025-11-12T14:03:36+0200
+  * @date    2025-11-13T02:30:28+0200
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * Copyright (c) 2025 STMicroelectronics.
@@ -32,7 +32,7 @@ AI_DEPRECATED
 AI_API_DECLARE_BEGIN
 
 
-extern const ai_u64 s_network_weights_array_u64[8279];
+extern const ai_u64 s_network_weights_array_u64[18004];
 
 
 

@@ -66,7 +66,7 @@ const float ACCELERATION_SCALE_FACTOR = (float) 4000/20; // scale factor to norm
 //- Stairs
 //- Walking
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+  "0", "1", "2", "3", "4", "5", "6"//, "7", "8", "9", "10", "11", "12"
 };
 
 ai_buffer * ai_input;
@@ -144,14 +144,14 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
+
+
 //       printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
-
-
+//      printf("x: %d, y: %d, z: %d\r\n", acc_axes.x , acc_axes.y, acc_axes.z);
 
       /* Normalize data to [-1; 1] and accumulate into input buffer */
 
       /* Note: window overlapping can be managed here */
-//      printf("x: %d, y: %d, z: %d\n", acc_axes.x , acc_axes.y, acc_axes.z);
 
       aiInData[write_index + 0] = (float) acc_axes.x / ACCELERATION_SCALE_FACTOR;
 
