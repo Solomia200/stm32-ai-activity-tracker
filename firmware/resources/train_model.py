@@ -53,7 +53,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--test-size", type=float, default=0.2, help="Test set fraction (default: 0.2)")
     p.add_argument("--epochs", type=int, default=100, help="Number of epochs (default: 100)")
     p.add_argument("--batch-size", type=int, default=32, help="Batch size (default: 32)")
-    p.add_argument("--output-root", default="trains", help="Root folder to store training outputs (default: ./trains)")
+    p.add_argument("--output-root", default="trained-models", help="Root folder to store training outputs (default: ./trained-models)")
+    p.add_argument("--patience", type=int, default=8, help="Number of epochs to monitor for early stop (default: 8)")
+    p.add_argument("--delta", type=float, default=1e-3, help="Delta which is used for determining when to early stop (default: 1e-3)")
 
     return p.parse_args()
 
@@ -69,7 +71,7 @@ def main() -> int:
     X, y = NumpyArrayProcessor.load_dataset(dataset_path)
 
     num_classes = int(np.unique(y).size)
-    input_shape = (*(X.shape[1:]), 1)
+    input_shape = X.shape[1:]
     print(f"Dataset samples: {X.shape}, labels: {y.shape}, classes: {num_classes}")
     print(f"Input shape: {input_shape}")
 
@@ -87,10 +89,11 @@ def main() -> int:
         test_size=args.test_size,
         epochs=args.epochs,
         batch_size=args.batch_size,
+        patience=args.patience,
+        delta=args.delta
     )
 
     return 0
-
 
 
 if __name__ == "__main__":

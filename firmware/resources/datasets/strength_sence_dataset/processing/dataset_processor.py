@@ -78,12 +78,21 @@ class DatasetProcessor:
         return df
 
     @staticmethod
-    def get_windows(df: DataFrame, window_length: int) -> NDArray:
-        windows = utils.split_to_windows(df=df, window_length=window_length)
+    def get_windows(df: DataFrame, window_length: int, overlap_ratio: float=0) -> NDArray:
+        windows = utils.split_to_windows(df=df, window_length=window_length, overlap_ratio=overlap_ratio)
         return windows
 
     @classmethod
-    def process_dataset(cls, path_to_dataset: str, sensor_location: str, sensor: str, window_length: int=48, resample: bool=False, sampling_rate: float=52, target_sampling_rate: float=20) -> tuple[NDArray, NDArray]:
+    def process_dataset(cls,
+                    path_to_dataset: str,
+                    sensor_location: str,
+                    sensor: str,
+                    window_length: int=48,
+                    overlap_ratio: float=0,
+                    resample: bool=False,
+                    sampling_rate: float=52,
+                    target_sampling_rate: float=20) -> tuple[NDArray, NDArray]:
+
         laptop_num: int = cls.BODY_LOCATION_MAPPING[sensor_location]
 
         base_path = pathlib.Path(path_to_dataset)
@@ -100,7 +109,7 @@ class DatasetProcessor:
             if label is None:
                 continue
 
-            windows = cls.get_windows(df, window_length)
+            windows = cls.get_windows(df, window_length, overlap_ratio)
             samples.extend(windows)
 
             file_labels = np.full(shape=len(windows), fill_value=label)

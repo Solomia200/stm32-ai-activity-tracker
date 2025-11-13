@@ -1,8 +1,10 @@
 from pathlib import Path
 import numpy as np
+from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
+
 from model_evaluation.plot_training import save_training_plots
 from model_evaluation.evaluate_model import evaluate_model
 
@@ -18,6 +20,8 @@ def train_model(
             test_size: float = 0.2,
             epochs: int = 100,
             batch_size: int = 32,
+            patience: int = 8,
+            delta: float = 1e-3,
         ):
     """
     Train model given data and a get_model function.
@@ -31,8 +35,8 @@ def train_model(
     num_classes = int(np.unique(y).size)
 
     X = np.asarray(X)
-    if X.ndim == 3:
-        X = X[..., np.newaxis]
+    # if X.ndim == 3:
+    #     X = X[..., np.newaxis]
 
     input_shape = tuple(X.shape[1:])
 
@@ -40,7 +44,11 @@ def train_model(
 
     model = get_model_func(input_shape=input_shape, num_classes=num_classes)
     optimizer = Adam(learning_rate=lr)
-    model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"])
+    model.compile(
+        optimizer=optimizer,
+        loss="categorical_crossentropy",
+        metrics=["accuracy"]
+    )
 
     if not (0.0 <= test_size < 1.0 and 0.0 <= val_size < 1.0):
         raise ValueError("val_size and test_size must be between 0 and 1")
@@ -63,7 +71,7 @@ def train_model(
     y_test_o = to_categorical(y_test, num_classes=num_classes)
 
     out_root_p = Path(out_root)
-    out_dir = out_root_p / f"train-{name}"
+    out_dir = out_root_p / name
     training_plots_dir = out_dir / "training-path"
     evaluation_dir = out_dir / "evaluation"
 
@@ -72,6 +80,18 @@ def train_model(
     evaluation_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Training model, epochs={epochs}, batch_size={batch_size}")
+
+    early_stop = EarlyStopping(
+        monitor='val_loss',
+        min_delta=delta,
+        patience=patience,
+        verbose=1,
+        mode='min',
+        baseline=None,
+        restore_best_weights=True,
+        start_from_epoch=5
+    )
+
     history = model.fit(
         X_train,
         y_train_o,
@@ -79,6 +99,7 @@ def train_model(
         epochs=epochs,
         batch_size=batch_size,
         shuffle=True,
+        callbacks=[early_stop]
     )
 
     h5_path = out_dir / f"{name}.h5"

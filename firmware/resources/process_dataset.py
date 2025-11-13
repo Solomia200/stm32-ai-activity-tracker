@@ -33,6 +33,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("-sl", "--sensor-location", default="CHS", help="Sensor location code (default: CHS)")
     p.add_argument("-s", "--sensor", default="Acc", help="Sensor name (default: Acc)")
     p.add_argument("-wl", "--window-length", type=int, default=48, help="Window length (default: 48)")
+    p.add_argument("-or", "--overlap-ratio", type=float, default=0, help="Ration deffining how much windows will overlap (default: 0)")
     p.add_argument("-R", "--resample", action="store_true", help="Resample to target sampling rate if provided (present => True)")
     p.add_argument("-sr", "--sampling-rate", type=float, default=52.0, help="Original sampling rate (default: 52)")
     p.add_argument("-tsr", "--target-sampling-rate", type=float, default=20.0, help="Target sampling rate (default: 20)")
@@ -63,6 +64,7 @@ def main() -> int:
         sensor_location=args.sensor_location,
         sensor=args.sensor,
         window_length=args.window_length,
+        overlap_ratio=args.overlap_ratio,
         resample=args.resample,
         sampling_rate=args.sampling_rate,
         target_sampling_rate=args.target_sampling_rate,
