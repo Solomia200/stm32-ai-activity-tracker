@@ -1,0 +1,14 @@
+# Python virtual envirements
+.venv
+.env
+
+# Dataset zip files
+.zip
+
+# Dataset csv files
+datasets/strength_sence_dataset/dataset-csv
+datasets/pamap2/PAMAP2_Dataset
+
+# other
+image.png
+plot_model_diagram.py
