@@ -6,8 +6,7 @@
 .zip
 
 # Dataset csv files
-datasets/strength_sence_dataset/dataset-csv
-datasets/strength-sence-dataset/dataset-csv
+dataset-csv
 datasets/pamap2/PAMAP2_Dataset
 
 # other

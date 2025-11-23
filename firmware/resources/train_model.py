@@ -18,7 +18,7 @@ from pathlib import Path
 
 import numpy as np
 
-from datasets.strength_sence_dataset.processing.numpy_array_processor import NumpyArrayProcessor
+from utils.numpy_array_processor import NumpyArrayProcessor
 from training.train_model import train_model
 
 

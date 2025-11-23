@@ -14,7 +14,7 @@ import argparse
 from pathlib import Path
 
 from datasets.realworld.processing.dataset_processor import DatasetProcessor
-from datasets.realworld.processing.numpy_array_processor import NumpyArrayProcessor
+from utils.numpy_array_processor import NumpyArrayProcessor
 
 
 def parse_args() -> argparse.Namespace:

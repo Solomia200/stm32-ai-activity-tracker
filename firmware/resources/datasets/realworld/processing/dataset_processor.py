@@ -5,7 +5,6 @@ from pandas import DataFrame
 import numpy as np
 from numpy.typing import NDArray
 
-import pathlib
 from pathlib import Path
 
 from . import utils
