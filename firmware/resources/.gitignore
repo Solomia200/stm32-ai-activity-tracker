@@ -5,8 +5,9 @@
 # Dataset zip files
 .zip
 
-# Dataset csv files
+# Datasets
 dataset-csv
+datasets-np
 datasets/pamap2/PAMAP2_Dataset
 
 # other
