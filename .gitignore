@@ -10,6 +10,7 @@ __pycache__
 
 # dataset in csv format
 dataset-csv
+PAMAP2_Dataset
 
 # STM32CubeIDE debug configurations (user-specific)
 *.launch

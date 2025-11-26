@@ -1,0 +1,14 @@
+# Python virtual envirements
+.venv
+.env
+
+# Dataset zip files
+.zip
+
+# Datasets
+dataset-csv
+datasets-np
+datasets/pamap2/PAMAP2_Dataset
+
+# other
+plot_model_diagram.py
