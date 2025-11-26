@@ -10,5 +10,4 @@ dataset-csv
 datasets/pamap2/PAMAP2_Dataset
 
 # other
-image.png
 plot_model_diagram.py

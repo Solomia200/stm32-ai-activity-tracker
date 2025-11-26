@@ -29,6 +29,8 @@
 #include "ai_platform.h"
 #include "network.h"
 #include "network_data.h"
+
+#include "accelerometer_utils.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,16 +59,34 @@ float aiInData[AI_NETWORK_IN_1_SIZE];
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
-const uint8_t ACCELEROMETR_SAMPLING_RATE = 52; // sampling rate of the accelerometer in Hz
-const uint8_t ACCELERATION_RANGE = 16; // maximum acceleration value that can be measured in g
-const float ACCELERATION_SCALE_FACTOR = (float) 4000/20; // scale factor to normalize values to a range from -20 to 20
+const uint8_t ACCELEROMETR_SAMPLING_RATE = 50; // sampling rate of the accelerometer in Hz
+const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be measured in g
 
-//- Jogging
-//- Stationary
-//- Stairs
-//- Walking
+// Constants for data normalization
+// Each value in the array corresponding axis
+const float MEAN[3] = {
+		-1.6155228406675755,
+		7.502864436199742,
+		1.2114820544871543
+};
+
+const float SD[3] = {
+		4.403295758943889,
+		6.067940936204044,
+		2.8183932902284483
+};
+
+/*
+0 - "walking"
+1 - "running"
+2 - "climbing down"
+3 - "climbing up"
+4 - "lying"
+5 - "sitting"
+6 - "standing"
+*/
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "0", "1", "2", "3", "4", "5", "6"//, "7", "8", "9", "10", "11", "12"
+  "0", "1", "2", "3", "4", "5", "6"
 };
 
 ai_buffer * ai_input;
@@ -144,24 +164,11 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-
-
-//       printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
-//      printf("x: %d, y: %d, z: %d\r\n", acc_axes.x , acc_axes.y, acc_axes.z);
-
-      /* Normalize data to [-1; 1] and accumulate into input buffer */
-
-      /* Note: window overlapping can be managed here */
-
-      aiInData[write_index + 0] = (float) acc_axes.x / ACCELERATION_SCALE_FACTOR;
-
-      aiInData[write_index + 1] = (float) acc_axes.y / ACCELERATION_SCALE_FACTOR;
-
-      aiInData[write_index + 2] = (float) acc_axes.z / ACCELERATION_SCALE_FACTOR;
+      aiInData[write_index + 0] = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
+      aiInData[write_index + 1] = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
+      aiInData[write_index + 2] = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
 
       write_index += 3;
-
-
 
 
       if (write_index == AI_NETWORK_IN_1_SIZE) {
@@ -172,8 +179,15 @@ int main(void)
 
         printf("Running inference\r\n");
 
-        AI_Run(aiInData, aiOutData);
 
+        for (uint32_t i = 0; i < AI_NETWORK_IN_1_SIZE; i += 3) {
+            printf("%f %f %f\r\n",
+                aiInData[i + 0],
+                aiInData[i + 1],
+                aiInData[i + 2]);
+        }
+
+        AI_Run(aiInData, aiOutData);
 
 
         /* Output results */
@@ -579,13 +593,13 @@ static void MEMS_Init(void)
 
   /* Configure the LSM6DSL accelerometer (ODR, scale and interrupt) */
 
-  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, ACCELEROMETR_SAMPLING_RATE); /* 20 Hz */
+  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, ACCELEROMETR_SAMPLING_RATE);
 
-  LSM6DSL_ACC_SetFullScale(&MotionSensor, ACCELERATION_RANGE);          /* [-4000mg; +4000mg] */
+  LSM6DSL_ACC_SetFullScale(&MotionSensor, ACCELERATION_RANGE);
 
-  LSM6DSL_ACC_Set_INT1_DRDY(&MotionSensor, ENABLE);    /* Enable DRDY */
+  LSM6DSL_ACC_Set_INT1_DRDY(&MotionSensor, ENABLE);
 
-  LSM6DSL_ACC_GetAxesRaw(&MotionSensor, &axes);        /* Clear DRDY */
+  LSM6DSL_ACC_GetAxesRaw(&MotionSensor, &axes);
 
 
 

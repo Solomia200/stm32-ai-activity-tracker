@@ -8,6 +8,10 @@ from sklearn.model_selection import train_test_split
 from model_evaluation.plot_training import save_training_plots
 from model_evaluation.evaluate_model import evaluate_model
 
+from utils.normalization.normalize_dataset import normalize_dataset
+from utils.normalization.calculate_normalization_statistics import calculate_normalization_statistics
+from utils.normalization.save_normalization_statistics import save_normalization_statistics
+
 
 def train_model(
             get_model_func: callable,
@@ -35,8 +39,6 @@ def train_model(
     num_classes = int(np.unique(y).size)
 
     X = np.asarray(X)
-    # if X.ndim == 3:
-    #     X = X[..., np.newaxis]
 
     input_shape = tuple(X.shape[1:])
 
@@ -66,18 +68,27 @@ def train_model(
         X_trainval, y_trainval, test_size=val_relative, random_state=42, shuffle=True
     )
 
-    y_train_o = to_categorical(y_train, num_classes=num_classes)
-    y_val_o = to_categorical(y_val, num_classes=num_classes)
-    y_test_o = to_categorical(y_test, num_classes=num_classes)
-
-    out_root_p = Path(out_root)
-    out_dir = out_root_p / name
+    mean, sd = calculate_normalization_statistics(X_train)
+    X_train = normalize_dataset(X_train, mean, sd)
+    X_val = normalize_dataset(X_val, mean, sd)
+    X_test = normalize_dataset(X_test, mean, sd)
+    
+    out_root_path = Path(out_root)
+    out_dir = out_root_path / name
     training_plots_dir = out_dir / "training-path"
     evaluation_dir = out_dir / "evaluation"
 
     out_dir.mkdir(parents=True, exist_ok=True)
     training_plots_dir.mkdir(parents=True, exist_ok=True)
     evaluation_dir.mkdir(parents=True, exist_ok=True)
+
+    path_to_save_statistics = out_dir / "normalization_statistics.yaml"
+    save_normalization_statistics(path_to_save_statistics, mean, sd)
+
+    y_train_o = to_categorical(y_train, num_classes=num_classes)
+    y_val_o = to_categorical(y_val, num_classes=num_classes)
+    y_test_o = to_categorical(y_test, num_classes=num_classes)
+
 
     print(f"Training model, epochs={epochs}, batch_size={batch_size}")
 
