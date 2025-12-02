@@ -30,7 +30,8 @@
 #include "network.h"
 #include "network_data.h"
 
-#include "accelerometer_utils.h"
+#include "utils/accelerometer_utils.h"
+#include "utils/utils.h"
 
 #include "gatt_db.h"
 
@@ -109,8 +110,6 @@ static void MEMS_Init(void);
 static void AI_Init(void);
 
 static void AI_Run(float *pIn, float *pOut);
-
-static uint32_t argmax(const float * values, uint32_t len);
 
 /* USER CODE END PFP */
 
@@ -729,30 +728,6 @@ static void AI_Run(float *pIn, float *pOut)
 /* USER CODE BEGIN 4 */
 /*...*/
 
-
-static uint32_t argmax(const float * values, uint32_t len)
-
-{
-
-  float max_value = values[0];
-
-  uint32_t max_index = 0;
-
-  for (uint32_t i = 1; i < len; i++) {
-
-    if (values[i] > max_value) {
-
-      max_value = values[i];
-
-      max_index = i;
-
-    }
-
-  }
-
-  return max_index;
-
-}
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
