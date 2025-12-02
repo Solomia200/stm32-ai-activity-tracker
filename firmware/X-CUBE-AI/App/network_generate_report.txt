@@ -1,30 +1,30 @@
 ST Edge AI Core v2.2.0-20266 2adc00962
-Created date          : 2025-11-26 20:23:06
-Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96/wl-96.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace144293096840976448679530262517070 --output /home/bohdan/.stm32cubemx/network_output
+Created date          : 2025-12-02 03:38:09
+Parameters            : generate --target stm32l4 --name network -m /home/marta/Desktop/UCU/POC/main/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96/wl-96.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace7021200788280517741264360311955079 --output /home/marta/.stm32cubemx/network_output
 
 Exec/report summary (generate)
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-model file         :   /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96/wl-96.h5   
-type               :   keras                                                                                                                                           
-c_name             :   network                                                                                                                                         
-compression        :   none                                                                                                                                            
-options            :   allocate-inputs, allocate-outputs                                                                                                               
-optimization       :   balanced                                                                                                                                        
-target/series      :   stm32l4                                                                                                                                         
-workspace dir      :   /tmp/mxAI_workspace144293096840976448679530262517070                                                                                            
-output dir         :   /home/bohdan/.stm32cubemx/network_output                                                                                                        
-model_fmt          :   float                                                                                                                                           
-model_name         :   wl96                                                                                                                                            
-model_hash         :   0x70aa2ffbf5bc9013e15a0fac1e3945d3                                                                                                              
-params #           :   36,525 items (142.68 KiB)                                                                                                                       
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-input 1/1          :   'input_layer', f32(1x96x3), 1.12 KBytes, activations                                                                                            
-output 1/1         :   'activation', f32(1x7), 28 Bytes, activations                                                                                                   
-macc               :   1,234,800                                                                                                                                       
-weights (ro)       :   144,028 B (140.65 KiB) (1 segment) / -2,072(-1.4%) vs float model                                                                               
-activations (rw)   :   17,280 B (16.88 KiB) (1 segment) *                                                                                                              
-ram (total)        :   17,280 B (16.88 KiB) = 17,280 + 0 + 0                                                                                                           
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+model file         :   /home/marta/Desktop/UCU/POC/main/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96/wl-96.h5   
+type               :   keras                                                                                                                           
+c_name             :   network                                                                                                                         
+compression        :   none                                                                                                                            
+options            :   allocate-inputs, allocate-outputs                                                                                               
+optimization       :   balanced                                                                                                                        
+target/series      :   stm32l4                                                                                                                         
+workspace dir      :   /tmp/mxAI_workspace7021200788280517741264360311955079                                                                           
+output dir         :   /home/marta/.stm32cubemx/network_output                                                                                         
+model_fmt          :   float                                                                                                                           
+model_name         :   wl96                                                                                                                            
+model_hash         :   0x70aa2ffbf5bc9013e15a0fac1e3945d3                                                                                              
+params #           :   36,525 items (142.68 KiB)                                                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+input 1/1          :   'input_layer', f32(1x96x3), 1.12 KBytes, activations                                                                            
+output 1/1         :   'activation', f32(1x7), 28 Bytes, activations                                                                                   
+macc               :   1,234,800                                                                                                                       
+weights (ro)       :   144,028 B (140.65 KiB) (1 segment) / -2,072(-1.4%) vs float model                                                               
+activations (rw)   :   17,280 B (16.88 KiB) (1 segment) *                                                                                              
+ram (total)        :   17,280 B (16.88 KiB) = 17,280 + 0 + 0                                                                                           
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 (*) 'input'/'output' buffers are allocated in the activations buffer
 
 Model name - wl96
@@ -232,11 +232,11 @@ macc=1,234,800 weights=144,028 act=17,280 ram_io=0
 
 
 Generated files (7)
----------------------------------------------------------------- 
-/home/bohdan/.stm32cubemx/network_output/network_data_params.h   
-/home/bohdan/.stm32cubemx/network_output/network_data_params.c   
-/home/bohdan/.stm32cubemx/network_output/network_data.h          
-/home/bohdan/.stm32cubemx/network_output/network_data.c          
-/home/bohdan/.stm32cubemx/network_output/network_config.h        
-/home/bohdan/.stm32cubemx/network_output/network.h               
-/home/bohdan/.stm32cubemx/network_output/network.c               
+--------------------------------------------------------------- 
+/home/marta/.stm32cubemx/network_output/network_data_params.h   
+/home/marta/.stm32cubemx/network_output/network_data_params.c   
+/home/marta/.stm32cubemx/network_output/network_data.h          
+/home/marta/.stm32cubemx/network_output/network_data.c          
+/home/marta/.stm32cubemx/network_output/network_config.h        
+/home/marta/.stm32cubemx/network_output/network.h               
+/home/marta/.stm32cubemx/network_output/network.c               
