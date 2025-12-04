@@ -163,9 +163,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   uint32_t write_index = 0;
-
   while (1)
   {
+	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+
     if (dataRdyIntReceived != 0) {
       dataRdyIntReceived = 0;
       LSM6DSL_Axes_t acc_axes;
@@ -179,13 +180,9 @@ int main(void)
 
 
       if (write_index == AI_NETWORK_IN_1_SIZE) {
-
         write_index = 0;
 
-
-
         printf("Running inference\r\n");
-
 
         for (uint32_t i = 0; i < AI_NETWORK_IN_1_SIZE; i += 3) {
             printf("%f %f %f\r\n",
@@ -196,21 +193,15 @@ int main(void)
 
         AI_Run(aiInData, aiOutData);
 
-
         /* Output results */
 
         for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-
           printf("%8.6f ", aiOutData[i]);
-
         }
 
         uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
-
         printf(": %d - %s\r\n", (int) class, activities[class]);
-
         BlueMS_Environmental_Update(0, (int16_t)(class * 10));
-
       }
 
     }
