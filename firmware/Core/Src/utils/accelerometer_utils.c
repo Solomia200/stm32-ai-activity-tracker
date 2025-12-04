@@ -5,7 +5,7 @@
  *      Author: bohdan
  */
 
-#include "accelerometer_utils.h"
+#include "utils/accelerometer_utils.h"
 
 
 #define GRAVITATIONAL_ACCELERATION  9.80665

@@ -30,7 +30,8 @@
 #include "network.h"
 #include "network_data.h"
 
-#include "accelerometer_utils.h"
+#include "utils/accelerometer_utils.h"
+#include "utils/utils.h"
 
 #include "gatt_db.h"
 
@@ -110,8 +111,6 @@ static void AI_Init(void);
 
 static void AI_Run(float *pIn, float *pOut);
 
-static uint32_t argmax(const float * values, uint32_t len);
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,9 +163,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   uint32_t write_index = 0;
-
   while (1)
   {
+	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+
     if (dataRdyIntReceived != 0) {
       dataRdyIntReceived = 0;
       LSM6DSL_Axes_t acc_axes;
@@ -180,13 +180,9 @@ int main(void)
 
 
       if (write_index == AI_NETWORK_IN_1_SIZE) {
-
         write_index = 0;
 
-
-
         printf("Running inference\r\n");
-
 
         for (uint32_t i = 0; i < AI_NETWORK_IN_1_SIZE; i += 3) {
             printf("%f %f %f\r\n",
@@ -197,21 +193,15 @@ int main(void)
 
         AI_Run(aiInData, aiOutData);
 
-
         /* Output results */
 
         for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-
           printf("%8.6f ", aiOutData[i]);
-
         }
 
         uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
-
         printf(": %d - %s\r\n", (int) class, activities[class]);
-
         BlueMS_Environmental_Update(0, (int16_t)(class * 10));
-
       }
 
     }
@@ -729,30 +719,6 @@ static void AI_Run(float *pIn, float *pOut)
 /* USER CODE BEGIN 4 */
 /*...*/
 
-
-static uint32_t argmax(const float * values, uint32_t len)
-
-{
-
-  float max_value = values[0];
-
-  uint32_t max_index = 0;
-
-  for (uint32_t i = 1; i < len; i++) {
-
-    if (values[i] > max_value) {
-
-      max_value = values[i];
-
-      max_index = i;
-
-    }
-
-  }
-
-  return max_index;
-
-}
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
