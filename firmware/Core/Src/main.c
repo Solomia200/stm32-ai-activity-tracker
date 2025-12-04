@@ -30,8 +30,9 @@
 #include "network.h"
 #include "network_data.h"
 
-#include "utils/accelerometer_utils.h"
-#include "utils/utils.h"
+#include "accelerometer_utils.h"
+#include "utils.h"
+#include "ring_imu_buffer.h"
 
 #include "gatt_db.h"
 
@@ -61,7 +62,10 @@ UART_HandleTypeDef huart1;
 LSM6DSL_Object_t MotionSensor;
 volatile uint32_t dataRdyIntReceived;
 ai_handle network;
+
+ringBufferIMU sampleBuffer;
 float aiInData[AI_NETWORK_IN_1_SIZE];
+
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
@@ -162,7 +166,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+<<<<<<< HEAD
   uint32_t write_index = 0;
+=======
+//  uint32_t write_index = 0;
+  uint8_t samplesWritten = 0;
+  printf("start");
+>>>>>>> 1eb4656 (Windows overlap implemented)
   while (1)
   {
 	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
@@ -172,10 +182,11 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-      aiInData[write_index + 0] = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
-      aiInData[write_index + 1] = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
-      aiInData[write_index + 2] = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
+      float x = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
+      float y = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
+      float z = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
 
+<<<<<<< HEAD
       write_index += 3;
 
 
@@ -195,6 +206,21 @@ int main(void)
 
         /* Output results */
 
+=======
+      pushSample(&sampleBuffer, x, y, z);
+
+      ++samplesWritten;
+
+      if (samplesWritten == WINDOW_SIZE) {
+        samplesWritten -= STRIDE;
+
+        printf("Running inference\r\n");
+
+        getWindow(&sampleBuffer, aiInData);
+
+        AI_Run(aiInData, aiOutData);
+
+>>>>>>> 1eb4656 (Windows overlap implemented)
         for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
           printf("%8.6f ", aiOutData[i]);
         }

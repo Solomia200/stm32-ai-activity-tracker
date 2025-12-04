@@ -12,7 +12,7 @@
 #include <stdint.h>
 
 
-uint32_t argmax(const float * values, uint32_t len);
+uint32_t argmax(const float* values, uint32_t len);
 
 
 #endif
