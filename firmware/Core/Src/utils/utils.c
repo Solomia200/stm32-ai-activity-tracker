@@ -6,15 +6,15 @@
  */
 
 
-#include "utils/utils.h"
+#include "utils.h"
 
 
-uint32_t argmax(const float * values, uint32_t len) {
+uint8_t argmax(const float * values, uint8_t len) {
   float max_value = values[0];
 
-  uint32_t max_index = 0;
+  uint8_t max_index = 0;
 
-  for (uint32_t i = 1; i < len; i++) {
+  for (uint8_t i = 1; i < len; ++i) {
     if (values[i] > max_value) {
       max_value = values[i];
       max_index = i;

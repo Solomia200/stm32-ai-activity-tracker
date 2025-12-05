@@ -23,15 +23,20 @@
 /* USER CODE BEGIN Includes */
 #include "lsm6dsl.h"
 #include "b_l475e_iot01a1_bus.h"
-#include <stdio.h>
 
+#include <stdio.h>
+#include <limits.h>
 
 #include "ai_platform.h"
 #include "network.h"
 #include "network_data.h"
 
-#include "utils/accelerometer_utils.h"
-#include "utils/utils.h"
+// Include our utils
+#include "accelerometer_utils.h"
+#include "utils.h"
+#include "imu_buffer.h"
+#include "prev_predictions_buffer.h"
+#include "prediction_hysteresis_update.h"
 
 #include "gatt_db.h"
 
@@ -61,7 +66,10 @@ UART_HandleTypeDef huart1;
 LSM6DSL_Object_t MotionSensor;
 volatile uint32_t dataRdyIntReceived;
 ai_handle network;
+
+ringBufferIMU sampleBuffer = {0};
 float aiInData[AI_NETWORK_IN_1_SIZE];
+
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
@@ -71,15 +79,15 @@ const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be 
 // Constants for data normalization
 // Each value in the array corresponding axis
 const float MEAN[3] = {
-		-1.6155228406675755,
-		7.502864436199742,
-		1.2114820544871543
+		-1.6231526426659282,
+		7.501583942737,
+		1.2124681126239438
 };
 
 const float SD[3] = {
-		4.403295758943889,
-		6.067940936204044,
-		2.8183932902284483
+		4.403413159511435,
+		6.060232171325414,
+		2.8230301520167984
 };
 
 /*
@@ -92,7 +100,7 @@ const float SD[3] = {
 6 - "standing"
 */
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "0", "1", "2", "3", "4", "5", "6"
+  "walking", "running", "climbing down", "climbing up", "lying", "sitting", "standing"
 };
 
 ai_buffer * ai_input;
@@ -162,7 +170,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  uint32_t write_index = 0;
+  uint8_t samplesWritten = 0;
+  uint8_t prevPredictionClassIndex = UCHAR_MAX;
+  prevPredictionsBuffer previousPredictionsBuffer = {0};
+  printf("Start\r\n\n");
   while (1)
   {
 	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
@@ -172,36 +183,50 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-      aiInData[write_index + 0] = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
-      aiInData[write_index + 1] = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
-      aiInData[write_index + 2] = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
+      float axis_1 = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
+      float axis_2 = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
+      float axis_3 = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
 
-      write_index += 3;
+      pushSample(&sampleBuffer, axis_1, axis_2, axis_3);
 
+      ++samplesWritten;
 
-      if (write_index == AI_NETWORK_IN_1_SIZE) {
-        write_index = 0;
+      if (samplesWritten == WINDOW_SIZE) {
+        samplesWritten -= STRIDE;
 
-        printf("Running inference\r\n");
+        printf("\r\n");
 
-        for (uint32_t i = 0; i < AI_NETWORK_IN_1_SIZE; i += 3) {
-            printf("%f %f %f\r\n",
-                aiInData[i + 0],
-                aiInData[i + 1],
-                aiInData[i + 2]);
-        }
-
+        getWindow(&sampleBuffer, aiInData);
         AI_Run(aiInData, aiOutData);
-
-        /* Output results */
 
         for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
           printf("%8.6f ", aiOutData[i]);
         }
+        printf("\r\n");
 
-        uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
-        printf(": %d - %s\r\n", (int) class, activities[class]);
-        BlueMS_Environmental_Update(0, (int16_t)class);
+        uint8_t rawPredictionClassIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
+        uint8_t predictionClassIndex = rawPredictionClassIndex;
+        pushPrediction(&previousPredictionsBuffer, rawPredictionClassIndex);
+
+        printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
+
+
+        if (rawPredictionClassIndex != prevPredictionClassIndex) {
+            predictionClassIndex = updatePredictionHysteresis(&previousPredictionsBuffer,
+            										rawPredictionClassIndex,
+													prevPredictionClassIndex,
+													aiOutData[rawPredictionClassIndex]);
+
+//        	printf("Class changed: %d\r\n", predictionClassIndex);
+        } else {
+            predictionClassIndex = prevPredictionClassIndex;
+//        	printf("Class not changed: %d\r\n", predictionClassIndex);
+        }
+
+        printf("Filtered prediction class index: %s\r\n\n", activities[predictionClassIndex]);
+        prevPredictionClassIndex = predictionClassIndex;
+
+        BlueMS_Environmental_Update(0, (int16_t) class);
       }
 
     }
