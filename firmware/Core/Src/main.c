@@ -164,16 +164,6 @@ int main(void)
   AI_Init();
   MX_BlueNRG_MS_Init();
 
-  // 1) Ініціалізація Flash Storage
-  Storage_Init();
-
-  // 2) Запуск тестів
-  Storage_RunTests();
-
-  // 3) Зупиняємо програму — вона показує результати тестів у UART
-  while (1)
-  {
-  }
 
 
 
@@ -216,7 +206,6 @@ int main(void)
         }
         printf("\r\n");
 
-<<<<<<< HEAD
         uint8_t rawPredictionClassIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
         uint8_t predictionClassIndex = rawPredictionClassIndex;
         pushPrediction(&previousPredictionsBuffer, rawPredictionClassIndex);
@@ -240,11 +229,6 @@ int main(void)
         prevPredictionClassIndex = predictionClassIndex;
 
         BlueMS_Environmental_Update(0, (int16_t) class);
-=======
-        uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
-        printf(": %d - %s\r\n", (int) class, activities[class]);
-
->>>>>>> 63c8925 (add functions for storing data)
       }
 
     }
