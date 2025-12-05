@@ -166,13 +166,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-<<<<<<< HEAD
-  uint32_t write_index = 0;
-=======
-//  uint32_t write_index = 0;
   uint8_t samplesWritten = 0;
-  printf("start");
->>>>>>> 1eb4656 (Windows overlap implemented)
+  char* prevClass = NULL;
   while (1)
   {
 	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
@@ -186,27 +181,7 @@ int main(void)
       float y = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
       float z = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
 
-<<<<<<< HEAD
-      write_index += 3;
 
-
-      if (write_index == AI_NETWORK_IN_1_SIZE) {
-        write_index = 0;
-
-        printf("Running inference\r\n");
-
-        for (uint32_t i = 0; i < AI_NETWORK_IN_1_SIZE; i += 3) {
-            printf("%f %f %f\r\n",
-                aiInData[i + 0],
-                aiInData[i + 1],
-                aiInData[i + 2]);
-        }
-
-        AI_Run(aiInData, aiOutData);
-
-        /* Output results */
-
-=======
       pushSample(&sampleBuffer, x, y, z);
 
       ++samplesWritten;
@@ -214,20 +189,29 @@ int main(void)
       if (samplesWritten == WINDOW_SIZE) {
         samplesWritten -= STRIDE;
 
-        printf("Running inference\r\n");
+        printf("\r\n");
 
         getWindow(&sampleBuffer, aiInData);
 
         AI_Run(aiInData, aiOutData);
 
->>>>>>> 1eb4656 (Windows overlap implemented)
-        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-          printf("%8.6f ", aiOutData[i]);
+//        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
+//          printf("%8.6f ", aiOutData[i]);
+//        }
+
+        uint32_t classIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
+        const char* class = activities[classIndex];
+
+        if (class != prevClass) {
+        	prevClass = class;
+        	printf("Class changed: %s\r\n", class);
+        } else {
+        	printf("Class not changed: %s\r\n", prevClass);
         }
 
-        uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
-        printf(": %d - %s\r\n", (int) class, activities[class]);
-        BlueMS_Environmental_Update(0, (int16_t)(class * 10));
+
+//        printf(": %d - %s\r\n", (int) class, activities[class]);
+        BlueMS_Environmental_Update(0, (int16_t)(classIndex * 10));
       }
 
     }
