@@ -24,7 +24,7 @@
 #include "lsm6dsl.h"
 #include "b_l475e_iot01a1_bus.h"
 
-#include <stdio.h
+#include <stdio.h>
 
 #include "ai_platform.h"
 #include "network.h"
