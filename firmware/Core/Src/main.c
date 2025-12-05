@@ -201,7 +201,7 @@ int main(void)
 
         uint32_t class = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
         printf(": %d - %s\r\n", (int) class, activities[class]);
-        BlueMS_Environmental_Update(0, (int16_t)(class * 10));
+        BlueMS_Environmental_Update(0, (int16_t)class);
       }
 
     }
