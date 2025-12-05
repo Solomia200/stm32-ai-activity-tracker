@@ -6,7 +6,7 @@
  */
 
 
-#include "ring_imu_buffer.h"
+#include <imu_buffer.h>
 
 
 void pushSample(ringBufferIMU* buffer, const float x, const float y, const float z) {
@@ -29,6 +29,6 @@ void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*3]) {
 		outBuffer[3*i + 1] = buffer->axis_2[ringBufferPos];
 		outBuffer[3*i + 2] = buffer->axis_3[ringBufferPos];
 
-		ringBufferPos = (buffer->index + 1) % WINDOW_SIZE;
+		ringBufferPos = (ringBufferPos + 1) % WINDOW_SIZE;
 	}
 }

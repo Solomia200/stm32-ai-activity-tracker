@@ -5,8 +5,8 @@
  *      Author: bohdan
  */
 
-#ifndef INC_UTILS_RING_IMU_BUFFER_H_
-#define INC_UTILS_RING_IMU_BUFFER_H_
+#ifndef INC_UTILS_IMU_BUFFER_H_
+#define INC_UTILS_IMU_BUFFER_H_
 
 
 #include <stdint.h>
@@ -29,4 +29,4 @@ void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*3]);
 
 
 
-#endif /* INC_UTILS_RING_IMU_BUFFER_H_ */
+#endif /* INC_UTILS_IMU_BUFFER_H_ */
