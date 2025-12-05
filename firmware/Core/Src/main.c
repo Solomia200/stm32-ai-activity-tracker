@@ -24,8 +24,7 @@
 #include "lsm6dsl.h"
 #include "b_l475e_iot01a1_bus.h"
 
-#include <stdio.h>
-#include <limits.h>
+#include <stdio.h
 
 #include "ai_platform.h"
 #include "network.h"
@@ -173,7 +172,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   uint8_t samplesWritten = 0;
-  uint8_t prevPredictionClassIndex = UCHAR_MAX;
+  uint8_t prevPredictionClassIndex = 0;
   prevPredictionsBuffer previousPredictionsBuffer = {0};
   printf("Start\r\n\n");
   while (1)
@@ -196,22 +195,19 @@ int main(void)
       if (samplesWritten == WINDOW_SIZE) {
         samplesWritten -= STRIDE;
 
-        printf("\r\n");
-
         getWindow(&sampleBuffer, aiInData);
         AI_Run(aiInData, aiOutData);
 
-        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-          printf("%8.6f ", aiOutData[i]);
-        }
-        printf("\r\n");
+//        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
+//          printf("%8.6f ", aiOutData[i]);
+//        }
+//        printf("\r\n");
 
         uint8_t rawPredictionClassIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
         uint8_t predictionClassIndex = rawPredictionClassIndex;
         pushPrediction(&previousPredictionsBuffer, rawPredictionClassIndex);
 
-        printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
-
+//        printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
 
         if (rawPredictionClassIndex != prevPredictionClassIndex) {
             predictionClassIndex = updatePredictionHysteresis(&previousPredictionsBuffer,
@@ -219,16 +215,17 @@ int main(void)
 													prevPredictionClassIndex,
 													aiOutData[rawPredictionClassIndex]);
 
-//        	printf("Class changed: %d\r\n", predictionClassIndex);
+            if (predictionClassIndex != prevPredictionClassIndex) {
+            	printf("Class changed: %d\r\n\n", predictionClassIndex);
+                BlueMS_Environmental_Update(0, (int16_t) predictionClassIndex);
+                prevPredictionClassIndex = predictionClassIndex;
+            }
+
         } else {
             predictionClassIndex = prevPredictionClassIndex;
-//        	printf("Class not changed: %d\r\n", predictionClassIndex);
         }
 
-        printf("Filtered prediction class index: %s\r\n\n", activities[predictionClassIndex]);
-        prevPredictionClassIndex = predictionClassIndex;
-
-        BlueMS_Environmental_Update(0, (int16_t) class);
+//        printf("Filtered prediction class index: %s\r\n\n", activities[predictionClassIndex]);
       }
 
     }

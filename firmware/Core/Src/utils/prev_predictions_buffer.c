@@ -9,7 +9,6 @@
 #include "prev_predictions_buffer.h"
 
 
-
 void initPrevPredictionBuffer(prevPredictionsBuffer* buffer) {
     memset(buffer->arr, 0, sizeof(buffer->arr));
     memset(buffer->freqClassCount, 0, sizeof(buffer->freqClassCount));
