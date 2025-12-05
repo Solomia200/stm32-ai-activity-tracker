@@ -226,7 +226,7 @@ int main(void)
         printf("Filtered prediction class index: %s\r\n\n", activities[predictionClassIndex]);
         prevPredictionClassIndex = predictionClassIndex;
 
-        BlueMS_Environmental_Update(0, (int16_t)(predictionClassIndex * 10));
+        BlueMS_Environmental_Update(0, (int16_t) class);
       }
 
     }
