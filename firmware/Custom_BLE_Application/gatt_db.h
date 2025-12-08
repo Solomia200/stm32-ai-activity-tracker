@@ -75,7 +75,7 @@ typedef union Char_UUID_t_s {
 tBleStatus Add_HWServW2ST_Service(void);
 tBleStatus Add_SWServW2ST_Service(void);
 void Read_Request_CB(uint16_t handle);
-tBleStatus BlueMS_Environmental_Update(int32_t press, int16_t temp);
+tBleStatus BlueMS_Environmental_Update(uint32_t timestamp, int16_t activity);
 tBleStatus Acc_Update(AxesRaw_t *x_axes, AxesRaw_t *g_axes, AxesRaw_t *m_axes);
 tBleStatus Quat_Update(AxesRaw_t *q_axes);
 

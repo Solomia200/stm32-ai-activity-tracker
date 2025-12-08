@@ -266,14 +266,16 @@ void Read_Request_CB(uint16_t handle)
   }
 }
 
-tBleStatus BlueMS_Environmental_Update(int32_t press, int16_t temp)
+tBleStatus BlueMS_Environmental_Update(uint32_t timestamp, int16_t activity)
 {
   tBleStatus ret;
   uint8_t buff[8];
-  HOST_TO_LE_16(buff, HAL_GetTick()>>3);
 
-  HOST_TO_LE_32(buff+2,press);
-  HOST_TO_LE_16(buff+6,temp);
+
+  HOST_TO_LE_32(buff, timestamp);
+  HOST_TO_LE_16(buff+4, activity);
+  HOST_TO_LE_16(buff+6, 0);
+
 
   ret = aci_gatt_update_char_value(HWServW2STHandle, EnvironmentalCharHandle,
                                    0, 8, buff);

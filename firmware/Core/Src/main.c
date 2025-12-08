@@ -39,6 +39,10 @@
 
 #include "gatt_db.h"
 
+
+
+#include "activity_storage.h"
+#include "activity_sync.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,6 +79,7 @@ ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 const uint8_t ACCELEROMETR_SAMPLING_RATE = 50; // sampling rate of the accelerometer in Hz
 const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be measured in g
 
+
 // Constants for data normalization
 // Each value in the array corresponding axis
 const float MEAN[3] = {
@@ -105,7 +110,7 @@ const char* activities[AI_NETWORK_OUT_1_SIZE] = {
 ai_buffer * ai_input;
 ai_buffer * ai_output;
 /* USER CODE END PV */
-
+volatile uint8_t g_need_sync = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -162,7 +167,16 @@ int main(void)
   MEMS_Init();
   AI_Init();
   MX_BlueNRG_MS_Init();
-
+  Storage_Init();
+  printf("Dumping all stored records:\n");
+  uint32_t count = Storage_GetRecordCount();
+  for (uint32_t i = 0; i < count; i++) {
+      ActivityRecord r;
+      if (Storage_ReadRecord(i, &r)) {
+          printf("[%lu] time=%lu, class=%u\n",
+                 i, (unsigned long)r.timestamp, r.activity_id);
+      }
+  }
 
 
 
@@ -216,10 +230,14 @@ int main(void)
 													aiOutData[rawPredictionClassIndex]);
 
             if (predictionClassIndex != prevPredictionClassIndex) {
-            	printf("Class changed: %d\r\n\n", predictionClassIndex);
-                BlueMS_Environmental_Update(0, (int16_t) predictionClassIndex);
-                prevPredictionClassIndex = predictionClassIndex;
-            }
+                        	printf("Class changed: %d\r\n\n", predictionClassIndex);
+                        	uint32_t now = HAL_GetTick()/ 1000;
+                        	Storage_SaveRecord(now, predictionClassIndex);
+                        	printf("Saved record: time=%lu, class=%d\r\n", now, predictionClassIndex);
+                            BlueMS_Environmental_Update(now, (int16_t) predictionClassIndex);
+
+                            prevPredictionClassIndex = predictionClassIndex;
+                        }
 
         } else {
             predictionClassIndex = prevPredictionClassIndex;
@@ -229,6 +247,11 @@ int main(void)
       }
 
     }
+    if (g_need_sync) {
+            printf("SYNC requested (g_need_sync=1)\r\n");
+            g_need_sync = 0;
+            BLE_SyncStoredActivities();
+        }
 
     MX_BlueNRG_MS_Process();
 

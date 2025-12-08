@@ -46,6 +46,8 @@ __IO uint32_t connected = FALSE;
 extern uint16_t EnvironmentalCharHandle;
 extern uint16_t AccGyroMagCharHandle;
 
+extern volatile uint8_t g_need_sync;
+
 volatile uint8_t request_free_fall_notify = FALSE;
 
 AxesRaw_t x_axes = {0, 0, 0};
@@ -178,6 +180,7 @@ void GAP_DisconnectionComplete_CB(void)
   /* Make the device connectable again. */
   set_connectable = TRUE;
   notification_enabled = FALSE;
+  g_need_sync = 0;
 }
 
 /**
@@ -190,6 +193,10 @@ void GAP_ConnectionComplete_CB(uint8_t addr[6], uint16_t handle)
 {
   connected = TRUE;
   connection_handle = handle;
+
+  g_need_sync = 1;
+  PRINTF("Sync requested (g_need_sync=1)\n");
+
 
   PRINTF("Connected to device:");
   for(uint32_t i = 5; i > 0; i--){
