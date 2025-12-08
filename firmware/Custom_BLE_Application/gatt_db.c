@@ -273,7 +273,7 @@ tBleStatus BlueMS_Environmental_Update(uint32_t timestamp, int16_t activity)
 
 
   HOST_TO_LE_32(buff, timestamp);
-  HOST_TO_LE_16(buff+4, activity);
+  HOST_TO_LE_16(buff+4, (uint16_t)activity);
   HOST_TO_LE_16(buff+6, 0);
 
 

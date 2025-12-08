@@ -41,7 +41,15 @@ void BLE_SyncStoredActivities(void)
                rec.activity_id);
 
 
-        BlueMS_Environmental_Update(rec.timestamp, (int16_t)rec.activity_id);
+        uint8_t buff[8];
+
+        HOST_TO_LE_32(buff, rec.timestamp);
+        HOST_TO_LE_16(buff + 4, rec.activity_id);
+        HOST_TO_LE_16(buff + 6, 0);
+
+        aci_gatt_update_char_value(HWServW2STHandle, EnvironmentalCharHandle,
+                                   0, 8, buff);
+
 
 
         HAL_Delay(30);

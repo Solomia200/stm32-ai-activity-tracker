@@ -232,6 +232,7 @@ int main(void)
             if (predictionClassIndex != prevPredictionClassIndex) {
                         	printf("Class changed: %d\r\n\n", predictionClassIndex);
                         	uint32_t now = HAL_GetTick()/ 1000;
+
                         	Storage_SaveRecord(now, predictionClassIndex);
                         	printf("Saved record: time=%lu, class=%d\r\n", now, predictionClassIndex);
                             BlueMS_Environmental_Update(now, (int16_t) predictionClassIndex);
