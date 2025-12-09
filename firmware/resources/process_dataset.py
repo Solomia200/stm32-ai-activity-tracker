@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     p.add_argument("-sl", "--sensor-location", default="CHS", help="Sensor location code (default: upperarm)")
-    p.add_argument("-s", "--sensor", default="Acc", help="Sensor name (default: acc)")
+    p.add_argument("-s", "--sensors", nargs='+', default=["acc"], help="Sensor names (default: acc). Can specify multiple: -s acc gyr")
     p.add_argument("-wl", "--window-length", type=int, help="Window length")
     p.add_argument("-or", "--overlap-ratio", type=float, default=0, help="Ration deffining how much windows will overlap (default: 0)")
 
@@ -54,12 +54,12 @@ def main() -> int:
         return 2
 
     print(f"Processing dataset at: {dataset_path}")
-    print(f"Sensor location: {args.sensor_location}, sensor: {args.sensor}")
+    print(f"Sensor location: {args.sensor_location}, sensors: {args.sensors}")
 
     samples, labels = DatasetProcessor.process_dataset(
         path_to_dataset=dataset_path,
         sensor_location=args.sensor_location,
-        sensor=args.sensor,
+        sensors=args.sensors,
         window_length=args.window_length,
         overlap_ratio=args.overlap_ratio
     )

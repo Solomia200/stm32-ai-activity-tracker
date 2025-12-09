@@ -4,6 +4,11 @@ import numpy as np
 from numpy.typing import NDArray
 
 
+def align_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    min_len = min(len(df1), len(df2))
+    return df1[:min_len].copy(), df2[:min_len].copy()
+
+
 def split_to_windows(df: pd.DataFrame, window_length: int, overlap_ratio: float=0) -> NDArray:
     """
     Convert a dataframe of shape (n_samples, n_axes) into overlapping windows.

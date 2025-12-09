@@ -44,6 +44,17 @@ class DatasetProcessor:
         return windows
     
     @classmethod
+    def __process_files(cls, files: list[Path], window_length: int, overlap_ratio: float=0) -> NDArray:
+        dfs = [cls.__read_file(f) for f in files]
+        for df in dfs:
+            cls.__interpolate_dataframe(df)
+        if len(dfs) > 1:
+            dfs[0], dfs[1] = utils.align_dataframes(dfs[0], dfs[1])
+        combined_df = pd.concat(dfs, axis=1)
+        windows = cls.__get_windows(combined_df, window_length, overlap_ratio)
+        return windows
+    
+    @classmethod
     def __process_directory(cls, path_to_dir: Path, sensor_location: str, window_length: int, overlap_ratio: float=0) -> NDArray:
         print(path_to_dir)
         file = next(path_to_dir.glob(f"*{sensor_location}*.csv"))
@@ -51,19 +62,35 @@ class DatasetProcessor:
         return windows
     
     @classmethod
-    def __process_subject(cls, path_to_subject: Path, sensor_location: str, sensor: str, window_length: int, overlap_ratio: float=0) -> tuple[list, list]:
-        directories = list(path_to_subject.glob(f"data/{sensor}*"))
-
+    def __process_directories(cls, dirs: list[Path], sensor_location: str, window_length: int, overlap_ratio: float=0) -> NDArray:
+        files = [next(d.glob(f"*{sensor_location}*.csv")) for d in dirs]
+        windows = cls.__process_files(files, window_length, overlap_ratio)
+        return windows
+    
+    @classmethod
+    def __process_subject(cls, path_to_subject: Path, sensor_location: str, sensors: list[str], window_length: int, overlap_ratio: float=0) -> tuple[list, list]:
+        all_dirs = {sensor: list(path_to_subject.glob(f"data/{sensor}*")) for sensor in sensors}
+        
         activity_match_pattern = re.compile(r"^.+_([a-z]+)_.+$")
+        activity_dirs = {}
+        for sensor in sensors:
+            for dir in all_dirs[sensor]:
+                activity_name = activity_match_pattern.match(dir.name).group(1)
+                if activity_name not in activity_dirs:
+                    activity_dirs[activity_name] = {}
+                activity_dirs[activity_name][sensor] = dir
+        
         samples = []
         labels = []
-        for dir in directories:
-            activity_name = activity_match_pattern.match(dir.name).group(1)
-            activity_id = cls.CLASS_TO_ID_MAPPING[activity_name]
+        for activity_name, sensor_dirs in activity_dirs.items():
+            activity_id = cls.CLASS_TO_ID_MAPPING.get(activity_name)
             if activity_id is None:
                 continue
-
-            windows = cls.__process_directory(dir, sensor_location, window_length, overlap_ratio)
+            if len(sensor_dirs) != len(sensors):
+                continue
+            
+            dirs = [sensor_dirs[s] for s in sensors]
+            windows = cls.__process_directories(dirs, sensor_location, window_length, overlap_ratio)
             window_labels = [activity_id] * len(windows)
             samples.extend(windows)
             labels.extend(window_labels)
@@ -79,7 +106,7 @@ class DatasetProcessor:
     def process_dataset(cls,
                     path_to_dataset: str,
                     sensor_location: str,
-                    sensor: str,
+                    sensors: list[str],
                     window_length: int,
                     overlap_ratio: float=0
                 ) -> tuple[NDArray, NDArray]:
@@ -92,7 +119,7 @@ class DatasetProcessor:
         for subject in subjects:
             print(subject)
 
-            subject_samples, subject_labels = cls.__process_subject(subject, sensor_location, sensor, window_length, overlap_ratio)
+            subject_samples, subject_labels = cls.__process_subject(subject, sensor_location, sensors, window_length, overlap_ratio)
 
             samples.extend(subject_samples)
             labels.extend(subject_labels)

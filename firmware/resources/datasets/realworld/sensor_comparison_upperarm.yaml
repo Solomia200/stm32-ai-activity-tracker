@@ -1,0 +1,809 @@
+sensor_location: upperarm
+comparison:
+  proband1:
+    climbingdown:
+      accelerometer_samples: 25435
+      gyroscope_samples: 25434
+      difference: 1
+      acc_file: proband1/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband1/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 32871
+      gyroscope_samples: 32870
+      difference: 1
+      acc_file: proband1/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband1/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4338
+      gyroscope_samples: 4337
+      difference: 1
+      acc_file: proband1/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband1/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31420
+      gyroscope_samples: 31418
+      difference: 2
+      acc_file: proband1/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband1/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 30612
+      gyroscope_samples: 30614
+      difference: -2
+      acc_file: proband1/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband1/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32877
+      gyroscope_samples: 32875
+      difference: 2
+      acc_file: proband1/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband1/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 32119
+      gyroscope_samples: 32116
+      difference: 3
+      acc_file: proband1/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband1/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 31949
+      gyroscope_samples: 31947
+      difference: 2
+      acc_file: proband1/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband1/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband10:
+    climbingdown:
+      accelerometer_samples: 21977
+      gyroscope_samples: 21978
+      difference: -1
+      acc_file: proband10/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband10/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 22968
+      gyroscope_samples: 22965
+      difference: 3
+      acc_file: proband10/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband10/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5190
+      gyroscope_samples: 5189
+      difference: 1
+      acc_file: proband10/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband10/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 32069
+      gyroscope_samples: 32067
+      difference: 2
+      acc_file: proband10/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband10/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 32219
+      gyroscope_samples: 32217
+      difference: 2
+      acc_file: proband10/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband10/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32129
+      gyroscope_samples: 32126
+      difference: 3
+      acc_file: proband10/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband10/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 33068
+      gyroscope_samples: 33067
+      difference: 1
+      acc_file: proband10/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband10/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 31768
+      gyroscope_samples: 31768
+      difference: 0
+      acc_file: proband10/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband10/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband11:
+    climbingdown:
+      accelerometer_samples: 24901
+      gyroscope_samples: 24900
+      difference: 1
+      acc_file: proband11/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband11/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 31464
+      gyroscope_samples: 31462
+      difference: 2
+      acc_file: proband11/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband11/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4990
+      gyroscope_samples: 4990
+      difference: 0
+      acc_file: proband11/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband11/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 32778
+      gyroscope_samples: 32777
+      difference: 1
+      acc_file: proband11/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband11/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 31087
+      gyroscope_samples: 31086
+      difference: 1
+      acc_file: proband11/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband11/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 31335
+      gyroscope_samples: 31280
+      difference: 55
+      acc_file: proband11/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband11/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 31479
+      gyroscope_samples: 31478
+      difference: 1
+      acc_file: proband11/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband11/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 33286
+      gyroscope_samples: 33286
+      difference: 0
+      acc_file: proband11/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband11/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband12:
+    climbingdown:
+      accelerometer_samples: 24377
+      gyroscope_samples: 24380
+      difference: -3
+      acc_file: proband12/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband12/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 28018
+      gyroscope_samples: 28017
+      difference: 1
+      acc_file: proband12/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband12/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5089
+      gyroscope_samples: 5088
+      difference: 1
+      acc_file: proband12/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband12/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31299
+      gyroscope_samples: 31297
+      difference: 2
+      acc_file: proband12/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband12/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 30928
+      gyroscope_samples: 30928
+      difference: 0
+      acc_file: proband12/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband12/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 31339
+      gyroscope_samples: 31338
+      difference: 1
+      acc_file: proband12/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband12/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 30870
+      gyroscope_samples: 30868
+      difference: 2
+      acc_file: proband12/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband12/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 31750
+      gyroscope_samples: 31749
+      difference: 1
+      acc_file: proband12/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband12/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband13:
+    climbingdown:
+      accelerometer_samples: 21929
+      gyroscope_samples: 21928
+      difference: 1
+      acc_file: proband13/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband13/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 30061
+      gyroscope_samples: 30060
+      difference: 1
+      acc_file: proband13/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband13/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5386
+      gyroscope_samples: 5381
+      difference: 5
+      acc_file: proband13/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband13/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 32419
+      gyroscope_samples: 32418
+      difference: 1
+      acc_file: proband13/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband13/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 30984
+      gyroscope_samples: 30984
+      difference: 0
+      acc_file: proband13/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband13/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32324
+      gyroscope_samples: 32323
+      difference: 1
+      acc_file: proband13/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband13/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 34067
+      gyroscope_samples: 34065
+      difference: 2
+      acc_file: proband13/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband13/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+  proband14:
+    climbingdown_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingdown_2:
+      accelerometer_samples: 6839
+      gyroscope_samples: 6838
+      difference: 1
+      acc_file: proband14/data/acc_climbingdown_2_csv/acc_climbingdown_2_upperarm.csv
+      gyr_file: proband14/data/gyr_climbingdown_2_csv/Gyroscope_climbingdown_2_upperarm.csv
+    climbingdown_3:
+      accelerometer_samples: 6894
+      gyroscope_samples: 6892
+      difference: 2
+      acc_file: proband14/data/acc_climbingdown_3_csv/acc_climbingdown_3_upperarm.csv
+      gyr_file: proband14/data/gyr_climbingdown_3_csv/Gyroscope_climbingdown_3_upperarm.csv
+    climbingup_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingup_2:
+      accelerometer_samples: 9920
+      gyroscope_samples: 9905
+      difference: 15
+      acc_file: proband14/data/acc_climbingup_2_csv/acc_climbingup_2_upperarm.csv
+      gyr_file: proband14/data/gyr_climbingup_2_csv/Gyroscope_climbingup_2_upperarm.csv
+    climbingup_3:
+      accelerometer_samples: 9640
+      gyroscope_samples: 9639
+      difference: 1
+      acc_file: proband14/data/acc_climbingup_3_csv/acc_climbingup_3_upperarm.csv
+      gyr_file: proband14/data/gyr_climbingup_3_csv/Gyroscope_climbingup_3_upperarm.csv
+    jumping:
+      accelerometer_samples: 4885
+      gyroscope_samples: 4869
+      difference: 16
+      acc_file: proband14/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband14/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31551
+      gyroscope_samples: 31549
+      difference: 2
+      acc_file: proband14/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband14/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 31040
+      gyroscope_samples: 31038
+      difference: 2
+      acc_file: proband14/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband14/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 31570
+      gyroscope_samples: 31565
+      difference: 5
+      acc_file: proband14/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband14/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 31220
+      gyroscope_samples: 31216
+      difference: 4
+      acc_file: proband14/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband14/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 33562
+      gyroscope_samples: 33562
+      difference: 0
+      acc_file: proband14/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband14/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband15:
+    climbingdown:
+      accelerometer_samples: 25601
+      gyroscope_samples: 25601
+      difference: 0
+      acc_file: proband15/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband15/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 29171
+      gyroscope_samples: 29169
+      difference: 2
+      acc_file: proband15/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband15/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4750
+      gyroscope_samples: 4750
+      difference: 0
+      acc_file: proband15/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband15/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 33083
+      gyroscope_samples: 33083
+      difference: 0
+      acc_file: proband15/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband15/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 33792
+      gyroscope_samples: 33791
+      difference: 1
+      acc_file: proband15/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband15/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32269
+      gyroscope_samples: 32266
+      difference: 3
+      acc_file: proband15/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband15/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 31469
+      gyroscope_samples: 31467
+      difference: 2
+      acc_file: proband15/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband15/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 33215
+      gyroscope_samples: 33216
+      difference: -1
+      acc_file: proband15/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband15/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband2:
+    climbingdown:
+      accelerometer_samples: 24826
+      gyroscope_samples: 24825
+      difference: 1
+      acc_file: proband2/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband2/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 25150
+      gyroscope_samples: 25150
+      difference: 0
+      acc_file: proband2/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband2/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4774
+      gyroscope_samples: 4774
+      difference: 0
+      acc_file: proband2/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband2/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31049
+      gyroscope_samples: 31047
+      difference: 2
+      acc_file: proband2/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband2/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 30655
+      gyroscope_samples: 30655
+      difference: 0
+      acc_file: proband2/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband2/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 30869
+      gyroscope_samples: 30869
+      difference: 0
+      acc_file: proband2/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband2/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 30768
+      gyroscope_samples: 30768
+      difference: 0
+      acc_file: proband2/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband2/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 30744
+      gyroscope_samples: 30744
+      difference: 0
+      acc_file: proband2/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband2/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband3:
+    climbingdown:
+      accelerometer_samples: 27743
+      gyroscope_samples: 27742
+      difference: 1
+      acc_file: proband3/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband3/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 29551
+      gyroscope_samples: 29551
+      difference: 0
+      acc_file: proband3/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband3/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5149
+      gyroscope_samples: 5148
+      difference: 1
+      acc_file: proband3/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband3/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31569
+      gyroscope_samples: 31568
+      difference: 1
+      acc_file: proband3/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband3/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 37937
+      gyroscope_samples: 37937
+      difference: 0
+      acc_file: proband3/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband3/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 31519
+      gyroscope_samples: 31518
+      difference: 1
+      acc_file: proband3/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband3/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 31219
+      gyroscope_samples: 31216
+      difference: 3
+      acc_file: proband3/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband3/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 34117
+      gyroscope_samples: 34115
+      difference: 2
+      acc_file: proband3/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband3/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband4:
+    climbingdown_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingdown_2:
+      accelerometer_samples: 11305
+      gyroscope_samples: 11302
+      difference: 3
+      acc_file: proband4/data/acc_climbingdown_2_csv/acc_climbingdown_2_upperarm.csv
+      gyr_file: proband4/data/gyr_climbingdown_2_csv/Gyroscope_climbingdown_2_upperarm.csv
+    climbingdown_3:
+      accelerometer_samples: 12038
+      gyroscope_samples: 12037
+      difference: 1
+      acc_file: proband4/data/acc_climbingdown_3_csv/acc_climbingdown_3_upperarm.csv
+      gyr_file: proband4/data/gyr_climbingdown_3_csv/Gyroscope_climbingdown_3_upperarm.csv
+    climbingup_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingup_2:
+      accelerometer_samples: 14208
+      gyroscope_samples: 14173
+      difference: 35
+      acc_file: proband4/data/acc_climbingup_2_csv/acc_climbingup_2_upperarm.csv
+      gyr_file: proband4/data/gyr_climbingup_2_csv/Gyroscope_climbingup_2_upperarm.csv
+    climbingup_3:
+      accelerometer_samples: 13138
+      gyroscope_samples: 13137
+      difference: 1
+      acc_file: proband4/data/acc_climbingup_3_csv/acc_climbingup_3_upperarm.csv
+      gyr_file: proband4/data/gyr_climbingup_3_csv/Gyroscope_climbingup_3_upperarm.csv
+    jumping:
+      accelerometer_samples: 4296
+      gyroscope_samples: 4293
+      difference: 3
+      acc_file: proband4/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband4/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 33787
+      gyroscope_samples: 33783
+      difference: 4
+      acc_file: proband4/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband4/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 52181
+      gyroscope_samples: 52181
+      difference: 0
+      acc_file: proband4/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband4/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 31817
+      gyroscope_samples: 31814
+      difference: 3
+      acc_file: proband4/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband4/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 30239
+      gyroscope_samples: 30239
+      difference: 0
+      acc_file: proband4/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband4/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+  proband5:
+    climbingdown:
+      accelerometer_samples: 25340
+      gyroscope_samples: 25340
+      difference: 0
+      acc_file: proband5/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband5/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 30431
+      gyroscope_samples: 30421
+      difference: 10
+      acc_file: proband5/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband5/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4760
+      gyroscope_samples: 4755
+      difference: 5
+      acc_file: proband5/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband5/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 33117
+      gyroscope_samples: 33117
+      difference: 0
+      acc_file: proband5/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband5/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 55646
+      gyroscope_samples: 55645
+      difference: 1
+      acc_file: proband5/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband5/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32768
+      gyroscope_samples: 32767
+      difference: 1
+      acc_file: proband5/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband5/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 30097
+      gyroscope_samples: 30097
+      difference: 0
+      acc_file: proband5/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband5/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 34836
+      gyroscope_samples: 34836
+      difference: 0
+      acc_file: proband5/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband5/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband6:
+    climbingdown:
+      accelerometer_samples: 24701
+      gyroscope_samples: 24700
+      difference: 1
+      acc_file: proband6/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband6/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 25950
+      gyroscope_samples: 25948
+      difference: 2
+      acc_file: proband6/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband6/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 4747
+      gyroscope_samples: 4746
+      difference: 1
+      acc_file: proband6/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband6/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 32209
+      gyroscope_samples: 32208
+      difference: 1
+      acc_file: proband6/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband6/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 33270
+      gyroscope_samples: 33269
+      difference: 1
+      acc_file: proband6/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband6/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    standing:
+      accelerometer_samples: 31819
+      gyroscope_samples: 31817
+      difference: 2
+      acc_file: proband6/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband6/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 31560
+      gyroscope_samples: 31557
+      difference: 3
+      acc_file: proband6/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband6/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband7:
+    climbingdown_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingdown_2:
+      accelerometer_samples: 10043
+      gyroscope_samples: 10043
+      difference: 0
+      acc_file: proband7/data/acc_climbingdown_2_csv/acc_climbingdown_2_upperarm.csv
+      gyr_file: proband7/data/gyr_climbingdown_2_csv/Gyroscope_climbingdown_2_upperarm.csv
+    climbingdown_3:
+      accelerometer_samples: 9171
+      gyroscope_samples: 9169
+      difference: 2
+      acc_file: proband7/data/acc_climbingdown_3_csv/acc_climbingdown_3_upperarm.csv
+      gyr_file: proband7/data/gyr_climbingdown_3_csv/Gyroscope_climbingdown_3_upperarm.csv
+    climbingup_1:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    climbingup_2:
+      accelerometer_samples: 10490
+      gyroscope_samples: 10488
+      difference: 2
+      acc_file: proband7/data/acc_climbingup_2_csv/acc_climbingup_2_upperarm.csv
+      gyr_file: proband7/data/gyr_climbingup_2_csv/Gyroscope_climbingup_2_upperarm.csv
+    climbingup_3:
+      accelerometer_samples: 10247
+      gyroscope_samples: 10246
+      difference: 1
+      acc_file: proband7/data/acc_climbingup_3_csv/acc_climbingup_3_upperarm.csv
+      gyr_file: proband7/data/gyr_climbingup_3_csv/Gyroscope_climbingup_3_upperarm.csv
+    jumping:
+      accelerometer_samples: 4972
+      gyroscope_samples: 4971
+      difference: 1
+      acc_file: proband7/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband7/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 32608
+      gyroscope_samples: 32606
+      difference: 2
+      acc_file: proband7/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband7/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 36824
+      gyroscope_samples: 36823
+      difference: 1
+      acc_file: proband7/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband7/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    standing:
+      accelerometer_samples: 33118
+      gyroscope_samples: 33117
+      difference: 1
+      acc_file: proband7/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband7/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 30904
+      gyroscope_samples: 30904
+      difference: 0
+      acc_file: proband7/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband7/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband8:
+    climbingdown:
+      accelerometer_samples: 22099
+      gyroscope_samples: 22098
+      difference: 1
+      acc_file: proband8/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband8/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 57858
+      gyroscope_samples: 57856
+      difference: 2
+      acc_file: proband8/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband8/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5035
+      gyroscope_samples: 5034
+      difference: 1
+      acc_file: proband8/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband8/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31597
+      gyroscope_samples: 31596
+      difference: 1
+      acc_file: proband8/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband8/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 30870
+      gyroscope_samples: 30869
+      difference: 1
+      acc_file: proband8/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband8/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32697
+      gyroscope_samples: 32697
+      difference: 0
+      acc_file: proband8/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband8/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 0
+      gyroscope_samples: 0
+      difference: 0
+      acc_file: NOT FOUND
+      gyr_file: NOT FOUND
+    walking:
+      accelerometer_samples: 32908
+      gyroscope_samples: 32907
+      difference: 1
+      acc_file: proband8/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband8/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv
+  proband9:
+    climbingdown:
+      accelerometer_samples: 25015
+      gyroscope_samples: 25015
+      difference: 0
+      acc_file: proband9/data/acc_climbingdown_csv/acc_climbingdown_upperarm.csv
+      gyr_file: proband9/data/gyr_climbingdown_csv/Gyroscope_climbingdown_upperarm.csv
+    climbingup:
+      accelerometer_samples: 27292
+      gyroscope_samples: 27292
+      difference: 0
+      acc_file: proband9/data/acc_climbingup_csv/acc_climbingup_upperarm.csv
+      gyr_file: proband9/data/gyr_climbingup_csv/Gyroscope_climbingup_upperarm.csv
+    jumping:
+      accelerometer_samples: 5074
+      gyroscope_samples: 5072
+      difference: 2
+      acc_file: proband9/data/acc_jumping_csv/acc_jumping_upperarm.csv
+      gyr_file: proband9/data/gyr_jumping_csv/Gyroscope_jumping_upperarm.csv
+    lying:
+      accelerometer_samples: 31463
+      gyroscope_samples: 31464
+      difference: -1
+      acc_file: proband9/data/acc_lying_csv/acc_lying_upperarm.csv
+      gyr_file: proband9/data/gyr_lying_csv/Gyroscope_lying_upperarm.csv
+    running:
+      accelerometer_samples: 40941
+      gyroscope_samples: 40939
+      difference: 2
+      acc_file: proband9/data/acc_running_csv/acc_running_upperarm.csv
+      gyr_file: proband9/data/gyr_running_csv/Gyroscope_running_upperarm.csv
+    sitting:
+      accelerometer_samples: 32471
+      gyroscope_samples: 32471
+      difference: 0
+      acc_file: proband9/data/acc_sitting_csv/acc_sitting_upperarm.csv
+      gyr_file: proband9/data/gyr_sitting_csv/Gyroscope_sitting_upperarm.csv
+    standing:
+      accelerometer_samples: 32167
+      gyroscope_samples: 32167
+      difference: 0
+      acc_file: proband9/data/acc_standing_csv/acc_standing_upperarm.csv
+      gyr_file: proband9/data/gyr_standing_csv/Gyroscope_standing_upperarm.csv
+    walking:
+      accelerometer_samples: 31394
+      gyroscope_samples: 31394
+      difference: 0
+      acc_file: proband9/data/acc_walking_csv/acc_walking_upperarm.csv
+      gyr_file: proband9/data/gyr_walking_csv/Gyroscope_walking_upperarm.csv

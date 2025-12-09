@@ -12,3 +12,5 @@ datasets/pamap2/PAMAP2_Dataset
 
 # other
 plot_model_diagram.py
+test.py
+temp.py
