@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    2025-12-04T23:30:32+0200
+  * @date    2025-12-09T17:48:13+0200
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -35,14 +35,14 @@
 #define AI_NET_OBJ_INSTANCE g_network
  
 #undef AI_NETWORK_MODEL_SIGNATURE
-#define AI_NETWORK_MODEL_SIGNATURE     "0x27b3c6a2cc3f4ab0b20eee1d3946c8f5"
+#define AI_NETWORK_MODEL_SIGNATURE     "0x5a366df422ee274826510637d20b039a"
 
 #ifndef AI_TOOLS_REVISION_ID
 #define AI_TOOLS_REVISION_ID     ""
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "2025-12-04T23:30:32+0200"
+#define AI_TOOLS_DATE_TIME   "2025-12-09T17:48:13+0200"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
@@ -59,7 +59,7 @@ static ai_ptr g_network_weights_map[1] = AI_C_ARRAY_INIT;
 /* Array#0 */
 AI_ARRAY_OBJ_DECLARE(
   input_layer_output_array, AI_ARRAY_FORMAT_FLOAT|AI_FMT_FLAG_IS_IO,
-  NULL, NULL, 288, AI_STATIC)
+  NULL, NULL, 576, AI_STATIC)
 
 /* Array#1 */
 AI_ARRAY_OBJ_DECLARE(
@@ -114,7 +114,7 @@ AI_ARRAY_OBJ_DECLARE(
 /* Array#11 */
 AI_ARRAY_OBJ_DECLARE(
   conv1d_conv2d_weights_array, AI_ARRAY_FORMAT_FLOAT,
-  NULL, NULL, 480, AI_STATIC)
+  NULL, NULL, 960, AI_STATIC)
 
 /* Array#12 */
 AI_ARRAY_OBJ_DECLARE(
@@ -164,7 +164,7 @@ AI_ARRAY_OBJ_DECLARE(
 /* Array#21 */
 AI_ARRAY_OBJ_DECLARE(
   conv1d_conv2d_scratch0_array, AI_ARRAY_FORMAT_FLOAT,
-  NULL, NULL, 15, AI_STATIC)
+  NULL, NULL, 30, AI_STATIC)
 
 /* Array#22 */
 AI_ARRAY_OBJ_DECLARE(
@@ -277,7 +277,7 @@ AI_TENSOR_OBJ_DECLARE(
 AI_TENSOR_OBJ_DECLARE(
   conv1d_conv2d_scratch0, AI_STATIC,
   13, 0x0,
-  AI_SHAPE_INIT(4, 1, 3, 1, 5), AI_STRIDE_INIT(4, 4, 4, 12, 12),
+  AI_SHAPE_INIT(4, 1, 6, 1, 5), AI_STRIDE_INIT(4, 4, 4, 24, 24),
   1, &conv1d_conv2d_scratch0_array, NULL)
 
 /* Tensor #14 */
@@ -291,7 +291,7 @@ AI_TENSOR_OBJ_DECLARE(
 AI_TENSOR_OBJ_DECLARE(
   conv1d_conv2d_weights, AI_STATIC,
   15, 0x0,
-  AI_SHAPE_INIT(4, 3, 1, 5, 32), AI_STRIDE_INIT(4, 4, 12, 384, 384),
+  AI_SHAPE_INIT(4, 6, 1, 5, 32), AI_STRIDE_INIT(4, 4, 24, 768, 768),
   1, &conv1d_conv2d_weights_array, NULL)
 
 /* Tensor #16 */
@@ -354,7 +354,7 @@ AI_TENSOR_OBJ_DECLARE(
 AI_TENSOR_OBJ_DECLARE(
   input_layer_output, AI_STATIC,
   24, 0x0,
-  AI_SHAPE_INIT(4, 1, 3, 1, 96), AI_STRIDE_INIT(4, 4, 4, 12, 12),
+  AI_SHAPE_INIT(4, 1, 6, 1, 96), AI_STRIDE_INIT(4, 4, 4, 24, 24),
   1, &input_layer_output_array, NULL)
 
 
@@ -560,14 +560,14 @@ AI_LAYER_OBJ_DECLARE(
 AI_NETWORK_OBJ_DECLARE(
   AI_NET_OBJ_INSTANCE, AI_STATIC,
   AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
-    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 144028, 1, 1),
-    144028, NULL, NULL),
+    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 145948, 1, 1),
+    145948, NULL, NULL),
   AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
     AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 17280, 1, 1),
     17280, NULL, NULL),
   AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &input_layer_output),
   AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &activation_output),
-  &conv1d_conv2d_layer, 0xd7f6a3cc, NULL)
+  &conv1d_conv2d_layer, 0x0d454eb1, NULL)
 
 #else
 
@@ -576,8 +576,8 @@ AI_NETWORK_OBJ_DECLARE(
   AI_BUFFER_ARRAY_OBJ_INIT_STATIC(
   	AI_FLAG_NONE, 1,
     AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
-      AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 144028, 1, 1),
-      144028, NULL, NULL)
+      AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 145948, 1, 1),
+      145948, NULL, NULL)
   ),
   AI_BUFFER_ARRAY_OBJ_INIT_STATIC(
   	AI_FLAG_NONE, 1,
@@ -587,7 +587,7 @@ AI_NETWORK_OBJ_DECLARE(
   ),
   AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &input_layer_output),
   AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &activation_output),
-  &conv1d_conv2d_layer, 0xd7f6a3cc, NULL)
+  &conv1d_conv2d_layer, 0x0d454eb1, NULL)
 
 #endif	/*(AI_TOOLS_API_VERSION < AI_TOOLS_API_VERSION_1_5)*/
 
@@ -605,8 +605,8 @@ ai_bool network_configure_activations(
     
     input_layer_output_array.data = AI_PTR(g_network_activations_map[0] + 6784);
     input_layer_output_array.data_start = AI_PTR(g_network_activations_map[0] + 6784);
-    conv1d_conv2d_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 7936);
-    conv1d_conv2d_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 7936);
+    conv1d_conv2d_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 9088);
+    conv1d_conv2d_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 9088);
     conv1d_conv2d_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 6528);
     conv1d_conv2d_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 6528);
     conv1d_conv2d_output_array.data = AI_PTR(g_network_activations_map[0] + 640);
@@ -656,32 +656,32 @@ ai_bool network_configure_weights(
     conv1d_conv2d_weights_array.data = AI_PTR(g_network_weights_map[0] + 0);
     conv1d_conv2d_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 0);
     conv1d_conv2d_bias_array.format |= AI_FMT_FLAG_CONST;
-    conv1d_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 1920);
-    conv1d_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 1920);
+    conv1d_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 3840);
+    conv1d_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 3840);
     conv1d_1_conv2d_weights_array.format |= AI_FMT_FLAG_CONST;
-    conv1d_1_conv2d_weights_array.data = AI_PTR(g_network_weights_map[0] + 2048);
-    conv1d_1_conv2d_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 2048);
+    conv1d_1_conv2d_weights_array.data = AI_PTR(g_network_weights_map[0] + 3968);
+    conv1d_1_conv2d_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 3968);
     conv1d_1_conv2d_bias_array.format |= AI_FMT_FLAG_CONST;
-    conv1d_1_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 43008);
-    conv1d_1_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 43008);
+    conv1d_1_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 44928);
+    conv1d_1_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 44928);
     conv1d_2_conv2d_weights_array.format |= AI_FMT_FLAG_CONST;
-    conv1d_2_conv2d_weights_array.data = AI_PTR(g_network_weights_map[0] + 43264);
-    conv1d_2_conv2d_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 43264);
+    conv1d_2_conv2d_weights_array.data = AI_PTR(g_network_weights_map[0] + 45184);
+    conv1d_2_conv2d_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 45184);
     conv1d_2_conv2d_bias_array.format |= AI_FMT_FLAG_CONST;
-    conv1d_2_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 116992);
-    conv1d_2_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 116992);
+    conv1d_2_conv2d_bias_array.data = AI_PTR(g_network_weights_map[0] + 118912);
+    conv1d_2_conv2d_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 118912);
     dense_dense_weights_array.format |= AI_FMT_FLAG_CONST;
-    dense_dense_weights_array.data = AI_PTR(g_network_weights_map[0] + 117376);
-    dense_dense_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 117376);
+    dense_dense_weights_array.data = AI_PTR(g_network_weights_map[0] + 119296);
+    dense_dense_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 119296);
     dense_dense_bias_array.format |= AI_FMT_FLAG_CONST;
-    dense_dense_bias_array.data = AI_PTR(g_network_weights_map[0] + 141952);
-    dense_dense_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 141952);
+    dense_dense_bias_array.data = AI_PTR(g_network_weights_map[0] + 143872);
+    dense_dense_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 143872);
     dense_1_weights_array.format |= AI_FMT_FLAG_CONST;
-    dense_1_weights_array.data = AI_PTR(g_network_weights_map[0] + 142208);
-    dense_1_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 142208);
+    dense_1_weights_array.data = AI_PTR(g_network_weights_map[0] + 144128);
+    dense_1_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 144128);
     dense_1_bias_array.format |= AI_FMT_FLAG_CONST;
-    dense_1_bias_array.data = AI_PTR(g_network_weights_map[0] + 144000);
-    dense_1_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 144000);
+    dense_1_bias_array.data = AI_PTR(g_network_weights_map[0] + 145920);
+    dense_1_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 145920);
     return true;
   }
   AI_ERROR_TRAP(net_ctx, INIT_FAILED, NETWORK_WEIGHTS);
@@ -720,7 +720,7 @@ ai_bool ai_network_get_info(
       .api_version            = ai_platform_api_get_version(),
       .interface_api_version  = ai_platform_interface_api_get_version(),
       
-      .n_macc            = 1234800,
+      .n_macc            = 1278960,
       .n_inputs          = 0,
       .inputs            = NULL,
       .n_outputs         = 0,
@@ -728,7 +728,7 @@ ai_bool ai_network_get_info(
       .params            = AI_STRUCT_INIT,
       .activations       = AI_STRUCT_INIT,
       .n_nodes           = 0,
-      .signature         = 0xd7f6a3cc,
+      .signature         = 0x0d454eb1,
     };
 
     if (!ai_platform_api_get_network_report(network, &r)) return false;
@@ -767,7 +767,7 @@ ai_bool ai_network_get_report(
       .api_version            = ai_platform_api_get_version(),
       .interface_api_version  = ai_platform_interface_api_get_version(),
       
-      .n_macc            = 1234800,
+      .n_macc            = 1278960,
       .n_inputs          = 0,
       .inputs            = NULL,
       .n_outputs         = 0,
@@ -776,7 +776,7 @@ ai_bool ai_network_get_report(
       .map_weights       = AI_STRUCT_INIT,
       .map_activations   = AI_STRUCT_INIT,
       .n_nodes           = 0,
-      .signature         = 0xd7f6a3cc,
+      .signature         = 0x0d454eb1,
     };
 
     if (!ai_platform_api_get_network_report(network, &r)) return false;

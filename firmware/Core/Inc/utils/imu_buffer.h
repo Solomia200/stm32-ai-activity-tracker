@@ -14,18 +14,28 @@
 
 #define WINDOW_SIZE 96
 #define STRIDE 48
+#define AXES_NUMBER 6
 
 
 typedef struct {
-	float axis_1[WINDOW_SIZE];
-	float axis_2[WINDOW_SIZE];
-	float axis_3[WINDOW_SIZE];
+	float acc_axis_1[WINDOW_SIZE];
+	float acc_axis_2[WINDOW_SIZE];
+	float acc_axis_3[WINDOW_SIZE];
+
+	float gyro_axis_1[WINDOW_SIZE];
+	float gyro_axis_2[WINDOW_SIZE];
+	float gyro_axis_3[WINDOW_SIZE];
+
 	uint8_t index;
 } ringBufferIMU;
 
 
-void pushSample(ringBufferIMU* buffer, const float x, const float y, const float z);
-void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*3]);
+void pushSample(ringBufferIMU* buffer,
+				const float acc_axis_1, const float acc_axis_2, const float acc_axis_3,
+				const float gyro_axis_1, const float gyro_axis_2, const float gyro_axis_3
+		);
+
+void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*AXES_NUMBER]);
 
 
 

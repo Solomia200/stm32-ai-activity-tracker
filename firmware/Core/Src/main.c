@@ -31,8 +31,8 @@
 #include "network_data.h"
 
 // Include our utils
-#include "accelerometer_utils.h"
 #include "utils.h"
+#include "imu_data_normalization.h"
 #include "imu_buffer.h"
 #include "prev_predictions_buffer.h"
 #include "prediction_hysteresis_update.h"
@@ -72,21 +72,37 @@ float aiInData[AI_NETWORK_IN_1_SIZE];
 float aiOutData[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
-const uint8_t ACCELEROMETR_SAMPLING_RATE = 50; // sampling rate of the accelerometer in Hz
-const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be measured in g
+const uint8_t ACCELEROMETR_SAMPLING_RATE_HZ = 50;
+const uint8_t GYROSCOPE_SAMPLING_RATE_HZ = 50;
+
+const uint8_t ACCELEROMETER_RANGE_G = 8u; // maximum acceleration in g that can be measured
+const uint16_t GYROSCOPE_RANGE_DEG = 500u; // maximum angular velocity in degrees/s that can be measured
+
 
 // Constants for data normalization
-// Each value in the array corresponding axis
-const float MEAN[3] = {
-		-1.6231526426659282,
-		7.501583942737,
-		1.2124681126239438
+// Each value in the array corresponding to the axis
+const float MEAN_ACC[3] = {
+		-1.6904617941468643,
+		7.380591003720558,
+		1.1897939699464348
 };
 
-const float SD[3] = {
-		4.403413159511435,
-		6.060232171325414,
-		2.8230301520167984
+const float SD_ACC[3] = {
+		4.455177490238286,
+		6.146447447490801,
+		2.8584555888567054
+};
+
+const float MEAN_GYRO[3] = {
+		-0.025432130884031626,
+		-0.012494510754525776,
+		0.02266753879350048
+};
+
+const float SD_GYRO[3] = {
+		0.578134889315799,
+		1.4013130290448894,
+		0.9076980994714925
 };
 
 /*
@@ -182,13 +198,23 @@ int main(void)
     if (dataRdyIntReceived != 0) {
       dataRdyIntReceived = 0;
       LSM6DSL_Axes_t acc_axes;
+      LSM6DSL_Axes_t gyro_axes;
+
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
+      LSM6DSL_GYRO_GetAxes(&MotionSensor, &gyro_axes);
 
-      float axis_1 = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
-      float axis_2 = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
-      float axis_3 = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
+      float acc_axis_1 = normalizeAccelerometerOutput(-acc_axes.y, MEAN_ACC[0], SD_ACC[0]);
+      float acc_axis_2 = normalizeAccelerometerOutput(acc_axes.x, MEAN_ACC[1], SD_ACC[1]);
+      float acc_axis_3 = normalizeAccelerometerOutput(acc_axes.z, MEAN_ACC[2], SD_ACC[2]);
 
-      pushSample(&sampleBuffer, axis_1, axis_2, axis_3);
+      float gyro_axis_1 = normalizeGyroscopeOutput(-gyro_axes.y, MEAN_GYRO[0], SD_GYRO[0]);
+      float gyro_axis_2 = normalizeGyroscopeOutput(gyro_axes.x, MEAN_GYRO[1], SD_GYRO[1]);
+      float gyro_axis_3 = normalizeGyroscopeOutput(gyro_axes.z, MEAN_GYRO[2], SD_GYRO[2]);
+
+      pushSample(&sampleBuffer,
+    		  	acc_axis_1, acc_axis_2, acc_axis_3,
+				gyro_axis_1, gyro_axis_2, gyro_axis_3
+			);
 
       ++samplesWritten;
 
@@ -198,16 +224,17 @@ int main(void)
         getWindow(&sampleBuffer, aiInData);
         AI_Run(aiInData, aiOutData);
 
-//        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-//          printf("%8.6f ", aiOutData[i]);
-//        }
-//        printf("\r\n");
+        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
+          printf("%8.6f ", aiOutData[i]);
+        }
+        printf("\r\n");
+
 
         uint8_t rawPredictionClassIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
         uint8_t predictionClassIndex = rawPredictionClassIndex;
         pushPrediction(&previousPredictionsBuffer, rawPredictionClassIndex);
 
-//        printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
+        //printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
 
         if (rawPredictionClassIndex != prevPredictionClassIndex) {
             predictionClassIndex = updatePredictionHysteresis(&previousPredictionsBuffer,
@@ -597,7 +624,6 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 static void MEMS_Init(void)
-
 {
 
   LSM6DSL_IO_t io_ctx;
@@ -641,27 +667,23 @@ static void MEMS_Init(void)
 
 
   /* Initialize the LSM6DSL sensor */
-
   LSM6DSL_Init(&MotionSensor);
 
-
-
   /* Configure the LSM6DSL accelerometer (ODR, scale and interrupt) */
-
-  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, ACCELEROMETR_SAMPLING_RATE);
-
-  LSM6DSL_ACC_SetFullScale(&MotionSensor, ACCELERATION_RANGE);
-
+  LSM6DSL_ACC_SetOutputDataRate(&MotionSensor, ACCELEROMETR_SAMPLING_RATE_HZ);
+  LSM6DSL_ACC_SetFullScale(&MotionSensor, ACCELEROMETER_RANGE_G);
   LSM6DSL_ACC_Set_INT1_DRDY(&MotionSensor, ENABLE);
-
   LSM6DSL_ACC_GetAxesRaw(&MotionSensor, &axes);
 
+  /* Configure the LSM6DSL gyroscope */
+  LSM6DSL_GYRO_SetOutputDataRate(&MotionSensor, GYROSCOPE_SAMPLING_RATE_HZ);
+  LSM6DSL_GYRO_SetFullScale(&MotionSensor, GYROSCOPE_RANGE_DEG);
+  LSM6DSL_GYRO_Set_INT1_DRDY(&MotionSensor, ENABLE);
+  LSM6DSL_GYRO_GetAxesRaw(&MotionSensor, &axes);
 
-
-  /* Start the LSM6DSL accelerometer */
-
+  /* Start the LSM6DSL MMU accelerometer and gyroscope*/
   LSM6DSL_ACC_Enable(&MotionSensor);
-
+  LSM6DSL_GYRO_Enable(&MotionSensor);
 }
 
 

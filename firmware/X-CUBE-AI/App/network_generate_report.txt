@@ -1,44 +1,44 @@
 ST Edge AI Core v2.2.0-20266 2adc00962
-Created date          : 2025-12-04 23:30:33
-Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-50/wl-96-overlap-50.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace440029110044117161089939115203510 --output /home/bohdan/.stm32cubemx/network_output
+Created date          : 2025-12-09 17:48:14
+Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl96-overlap50-acc-gyr/wl96-overlap50-acc-gyr.h5 --compression none --verbosity 1 --workspace /tmp/mxAI_workspace33160409976318474620474057132306 --output /home/bohdan/.stm32cubemx/network_output
 
 Exec/report summary (generate)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-model file         :   /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-50/wl-96-overlap-50.h5   
-type               :   keras                                                                                                                                                                 
-c_name             :   network                                                                                                                                                               
-compression        :   none                                                                                                                                                                  
-options            :   allocate-inputs, allocate-outputs                                                                                                                                     
-optimization       :   balanced                                                                                                                                                              
-target/series      :   stm32l4                                                                                                                                                               
-workspace dir      :   /tmp/mxAI_workspace440029110044117161089939115203510                                                                                                                  
-output dir         :   /home/bohdan/.stm32cubemx/network_output                                                                                                                              
-model_fmt          :   float                                                                                                                                                                 
-model_name         :   wl96overlap50                                                                                                                                                         
-model_hash         :   0x27b3c6a2cc3f4ab0b20eee1d3946c8f5                                                                                                                                    
-params #           :   36,525 items (142.68 KiB)                                                                                                                                             
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-input 1/1          :   'input_layer', f32(1x96x3), 1.12 KBytes, activations                                                                                                                  
-output 1/1         :   'activation', f32(1x7), 28 Bytes, activations                                                                                                                         
-macc               :   1,234,800                                                                                                                                                             
-weights (ro)       :   144,028 B (140.65 KiB) (1 segment) / -2,072(-1.4%) vs float model                                                                                                     
-activations (rw)   :   17,280 B (16.88 KiB) (1 segment) *                                                                                                                                    
-ram (total)        :   17,280 B (16.88 KiB) = 17,280 + 0 + 0                                                                                                                                 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+model file         :   /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl96-overlap50-acc-gyr/wl96-overlap50-acc-gyr.h5   
+type               :   keras                                                                                                                                                                             
+c_name             :   network                                                                                                                                                                           
+compression        :   none                                                                                                                                                                              
+options            :   allocate-inputs, allocate-outputs                                                                                                                                                 
+optimization       :   balanced                                                                                                                                                                          
+target/series      :   stm32l4                                                                                                                                                                           
+workspace dir      :   /tmp/mxAI_workspace33160409976318474620474057132306                                                                                                                               
+output dir         :   /home/bohdan/.stm32cubemx/network_output                                                                                                                                          
+model_fmt          :   float                                                                                                                                                                             
+model_name         :   wl96overlap50accgyr                                                                                                                                                               
+model_hash         :   0x5a366df422ee274826510637d20b039a                                                                                                                                                
+params #           :   37,011 items (144.57 KiB)                                                                                                                                                         
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+input 1/1          :   'input_layer', f32(1x96x6), 2.25 KBytes, activations                                                                                                                              
+output 1/1         :   'activation', f32(1x7), 28 Bytes, activations                                                                                                                                     
+macc               :   1,278,960                                                                                                                                                                         
+weights (ro)       :   145,948 B (142.53 KiB) (1 segment) / -2,096(-1.4%) vs float model                                                                                                                 
+activations (rw)   :   17,280 B (16.88 KiB) (1 segment) *                                                                                                                                                
+ram (total)        :   17,280 B (16.88 KiB) = 17,280 + 0 + 0                                                                                                                                             
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 (*) 'input'/'output' buffers are allocated in the activations buffer
 
-Model name - wl96overlap50
+Model name - wl96overlap50accgyr
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
 m_id   layer (type,original)                                          oshape            param/size           macc                    connected to   | c_size            c_macc              c_type                        
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
-0      input_layer (Input, InputLayer)                                [b:1,h:96,c:3]                                                                |                                       
+0      input_layer (Input, InputLayer)                                [b:1,h:96,c:6]                                                                |                                       
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
-1      batch_normalization (ScaleBias, BatchNormalization)            [b:1,h:96,c:3]    6/24                  576                     input_layer   | -24(-100.0%)      -576(-100.0%)       
+1      batch_normalization (ScaleBias, BatchNormalization)            [b:1,h:96,c:6]    12/48               1,152                     input_layer   | -48(-100.0%)      -1,152(-100.0%)     
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
-2      conv1d_conv2d (Conv2D, Conv1D)                                 [b:1,h:92,c:32]   512/2,048          44,192             batch_normalization   | -2,048(-100.0%)   -44,192(-100.0%)    
+2      conv1d_conv2d (Conv2D, Conv1D)                                 [b:1,h:92,c:32]   992/3,968          88,352             batch_normalization   | -3,968(-100.0%)   -88,352(-100.0%)    
        conv1d (Nonlinearity, Conv1D)                                  [b:1,h:92,c:32]                       2,944                   conv1d_conv2d   |                   -2,944(-100.0%)     
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
-3      max_pooling1d (Pool, MaxPooling1D)                             [b:1,h:46,c:32]                       2,944                          conv1d   | +2,048(+100.0%)   +47,136(+1601.1%)   Conv2D_[0]                    
+3      max_pooling1d (Pool, MaxPooling1D)                             [b:1,h:46,c:32]                       2,944                          conv1d   | +3,968(+100.0%)   +91,296(+3101.1%)   Conv2D_[0]                    
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
 4      batch_normalization_1 (ScaleBias, BatchNormalization)          [b:1,h:46,c:32]   64/256              2,944                   max_pooling1d   | -256(-100.0%)     -2,944(-100.0%)     
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
@@ -64,19 +64,19 @@ m_id   layer (type,original)                                          oshape    
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
 14     activation (Nonlinearity, Activation)                          [b:1,c:7]                               105                         dense_1   |                                       Nonlinearity_[o][9]           
 ------ -------------------------------------------------------------- ----------------- --------------- --------- ------------------------------- --- ----------------- ------------------- ----------------------------- 
-model/c-model: macc=1,244,016/1,234,800 -9,216(-0.7%) weights=146,100/144,028 -2,072(-1.4%) activations=--/17,280 io=--/0
+model/c-model: macc=1,288,752/1,278,960 -9,792(-0.8%) weights=148,044/145,948 -2,096(-1.4%) activations=--/17,280 io=--/0
 
 
 
 Generated C-graph summary
 ------------------------------------------------------------------------------------------------------------------------
-model name            : wl96overlap50
+model name            : wl96overlap50accgyr
 c-name                : network
 c-node #              : 10
 c-array #             : 25
 activations size      : 17280 (1 segment)
-weights size          : 144028 (1 segment)
-macc                  : 1234800
+weights size          : 145948 (1 segment)
+macc                  : 1278960
 inputs                : ['input_layer_output']
 outputs               : ['activation_output']
 
@@ -97,9 +97,9 @@ c_id   name (*_array)                         item/size     domain/mem-pool     
 10     conv1d_2_output                        3840/15360    activations/**default**   float                   
 11     conv1d_conv2d_bias                     32/128        weights/weights           const float             
 12     conv1d_conv2d_output                   1472/5888     activations/**default**   float                   
-13     conv1d_conv2d_scratch0                 15/60         activations/**default**   float                   
+13     conv1d_conv2d_scratch0                 30/120        activations/**default**   float                   
 14     conv1d_conv2d_scratch1                 64/256        activations/**default**   float                   
-15     conv1d_conv2d_weights                  480/1920      weights/weights           const float             
+15     conv1d_conv2d_weights                  960/3840      weights/weights           const float             
 16     dense_1_bias                           7/28          weights/weights           const float             
 17     dense_1_output                         7/28          activations/**default**   float                   
 18     dense_1_weights                        448/1792      weights/weights           const float             
@@ -108,17 +108,17 @@ c_id   name (*_array)                         item/size     domain/mem-pool     
 21     dense_dense_weights                    6144/24576    weights/weights           const float             
 22     dense_output                           64/256        activations/**default**   float                   
 23     global_average_pooling1d_pool_output   96/384        activations/**default**   float                   
-24     input_layer_output                     288/1152      activations/**default**   float         /input    
+24     input_layer_output                     576/2304      activations/**default**   float         /input    
 ------ -------------------------------------- ------------- ------------------------- ------------- --------- 
 
 C-Layers (10)
 ------ ------------------------------- ---- --------------- -------- ------- ----------------------------------------- -------------------- 
 c_id   name (*_layer)                  id   layer_type      macc     rom     tensors                                   shape (array id)     
 ------ ------------------------------- ---- --------------- -------- ------- ----------------------------------------- -------------------- 
-0      conv1d_conv2d                   3    Conv2D          50080    2048    I: input_layer_output                     f32(1x96x3) (24)     
+0      conv1d_conv2d                   3    Conv2D          94240    3968    I: input_layer_output                     f32(1x96x6) (24)     
                                                                              S: conv1d_conv2d_scratch0                                      
                                                                              S: conv1d_conv2d_scratch1                                      
-                                                                             W: conv1d_conv2d_weights                  f32(32x5x1x3) (15)   
+                                                                             W: conv1d_conv2d_weights                  f32(32x5x1x6) (15)   
                                                                              W: conv1d_conv2d_bias                     f32(32) (11)         
                                                                              O: conv1d_conv2d_output                   f32(1x46x32) (12)    
 ------ ------------------------------- ---- --------------- -------- ------- ----------------------------------------- -------------------- 
@@ -166,7 +166,7 @@ Number of operations per c-layer
 ------- ------ -------------------------------------- ----------- -------------- 
 c_id    m_id   name (type)                                    #op           type 
 ------- ------ -------------------------------------- ----------- -------------- 
-0       3      conv1d_conv2d (Conv2D)                      50,080   smul_f32_f32 
+0       3      conv1d_conv2d (Conv2D)                      94,240   smul_f32_f32 
 1       5      conv1d_1_conv2d (Conv2D)                   430,144   smul_f32_f32 
 2       5      conv1d_1 (Nonlinearity)                      2,688     op_f32_f32 
 3       7      conv1d_2_conv2d (Conv2D)                   737,376   smul_f32_f32 
@@ -177,28 +177,28 @@ c_id    m_id   name (type)                                    #op           type
 8       13     dense_1 (Dense)                                455   smul_f32_f32 
 9       14     activation (Nonlinearity)                      105     op_f32_f32 
 ------- ------ -------------------------------------- ----------- -------------- 
-total                                                   1,234,800 
+total                                                   1,278,960 
 
 Number of operation types
 ---------------- ----------- ----------- 
 operation type             #           % 
 ---------------- ----------- ----------- 
-smul_f32_f32       1,228,103       99.5% 
+smul_f32_f32       1,272,263       99.5% 
 op_f32_f32             6,697        0.5% 
 
 Complexity report (model)
 ------ ------------------------------- ------------------------- ------------------------- -------- 
 m_id   name                            c_macc                    c_rom                     c_id     
 ------ ------------------------------- ------------------------- ------------------------- -------- 
-3      max_pooling1d                   ||                 4.1%   |                  1.4%   [0]      
-5      conv1d_1_conv2d                 |||||||||         35.1%   |||||||||         28.6%   [1, 2]   
-7      conv1d_2_conv2d                 ||||||||||||||||  60.0%   ||||||||||||||||  51.5%   [3, 4]   
+3      max_pooling1d                   ||                 7.4%   |                  2.7%   [0]      
+5      conv1d_1_conv2d                 |||||||||         33.8%   |||||||||         28.2%   [1, 2]   
+7      conv1d_2_conv2d                 ||||||||||||||||  58.0%   ||||||||||||||||  50.8%   [3, 4]   
 8      global_average_pooling1d_pool   |                  0.3%   |                  0.0%   [5]      
-11     dense_dense                     |                  0.5%   ||||||            17.2%   [6, 7]   
-13     dense_1                         |                  0.0%   |                  1.3%   [8]      
+11     dense_dense                     |                  0.5%   ||||||            17.0%   [6, 7]   
+13     dense_1                         |                  0.0%   |                  1.2%   [8]      
 14     activation                      |                  0.0%   |                  0.0%   [9]      
 ------ ------------------------------- ------------------------- ------------------------- -------- 
-macc=1,234,800 weights=144,028 act=17,280 ram_io=0
+macc=1,278,960 weights=145,948 act=17,280 ram_io=0
  
  Requested memory size by section - "stm32l4" target
  ------------------------------ -------- --------- ------- -------- 
@@ -211,11 +211,11 @@ macc=1,234,800 weights=144,028 act=17,280 ram_io=0
  ------------------------------ -------- --------- ------- -------- 
  RT total**                       15,030       120   3,320      240 
  ------------------------------ -------- --------- ------- -------- 
- weights                               0   144,032       0        0 
+ weights                               0   145,952       0        0 
  activations                           0         0       0   17,280 
  io                                    0         0       0        0 
  ------------------------------ -------- --------- ------- -------- 
- TOTAL                            15,030   144,152   3,320   17,520 
+ TOTAL                            15,030   146,072   3,320   17,520 
  ------------------------------ -------- --------- ------- -------- 
  *  toolchain objects (libm/libgcc*)
  ** RT AI runtime objects (kernels+infrastructure)
@@ -224,9 +224,9 @@ macc=1,234,800 weights=144,028 act=17,280 ram_io=0
   ---------------------------------------------------
                FLASH (ro)      %*   RAM (rw)       % 
   ---------------------------------------------------
-  RT total         18,470   11.4%      3,560   17.1% 
+  RT total         18,470   11.2%      3,560   17.1% 
   ---------------------------------------------------
-  TOTAL           162,502             20,840         
+  TOTAL           164,422             20,840         
   ---------------------------------------------------
   *  rt/total
 

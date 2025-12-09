@@ -69,6 +69,7 @@ def train_model(
     )
 
     mean, sd = calculate_normalization_statistics(X_train)
+
     X_train = normalize_dataset(X_train, mean, sd)
     X_val = normalize_dataset(X_val, mean, sd)
     X_test = normalize_dataset(X_test, mean, sd)
