@@ -1,0 +1,20 @@
+Model Evaluation Metrics
+========================
+Accuracy : 0.8796
+Precision: 0.8898
+Recall   : 0.8796
+F1-score : 0.8820
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.8764    0.9398    0.9070      2059
+           1     0.9727    0.8466    0.9053      2230
+           2     0.9602    0.8584    0.9064      3566
+           3     0.9832    0.9590    0.9709      1950
+           4     0.7430    0.8869    0.8086      1946
+           5     0.7397    0.8087    0.7727      2028
+
+    accuracy                         0.8796     13779
+   macro avg     0.8792    0.8832    0.8785     13779
+weighted avg     0.8898    0.8796    0.8820     13779

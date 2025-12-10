@@ -1,5 +1,5 @@
 input:
-  scale: 0.05440005287528038
+  scale: 0.05434691533446312
   zero_point: 7
 output:
   scale: 0.00390625

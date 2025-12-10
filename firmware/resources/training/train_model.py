@@ -4,6 +4,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
+from sklearn.utils.class_weight import compute_class_weight
 
 from model_evaluation.plot_training import save_training_plots
 from model_evaluation.evaluate_model import evaluate_model
@@ -89,6 +90,14 @@ def train_model(
     y_val_o = to_categorical(y_val, num_classes=num_classes)
     y_test_o = to_categorical(y_test, num_classes=num_classes)
 
+    class_weights = compute_class_weight(
+        'balanced',
+        classes=np.unique(y_train),
+        y=y_train
+    )
+    class_weight_dict = {i: weight for i, weight in enumerate(class_weights)}
+    print(f"Class distribution: {np.bincount(y_train)}")
+    print(f"Class weights: {class_weight_dict}")
 
     print(f"Training model, epochs={epochs}, batch_size={batch_size}")
 
@@ -110,7 +119,8 @@ def train_model(
         epochs=epochs,
         batch_size=batch_size,
         shuffle=True,
-        callbacks=[early_stop]
+        callbacks=[early_stop],
+        class_weight=class_weight_dict
     )
 
     h5_path = out_dir / f"{name}.h5"

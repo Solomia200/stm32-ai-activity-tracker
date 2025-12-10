@@ -91,7 +91,7 @@ const float SD[3] = {
 		2.8230301520167984
 };
 
-const float INPUT_SCALE = 0.05440005287528038f;
+const float INPUT_SCALE = 0.05364283546805382f;
 const int8_t INPUT_ZERO_POINT = 7;
 
 const float OUTPUT_SCALE = 0.00390625f;
@@ -108,7 +108,7 @@ const int8_t OUTPUT_ZERO_POINT = -128;
 6 - "standing"
 */
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "walking", "running", "climbing down", "climbing up", "lying", "sitting", "standing"
+  "walking", "running", "stairs", "lying", "sitting", "standing"
 };
 
 ai_buffer * ai_input;

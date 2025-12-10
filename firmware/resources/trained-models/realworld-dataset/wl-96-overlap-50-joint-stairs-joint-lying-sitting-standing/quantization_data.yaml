@@ -1,6 +1,6 @@
 input:
-  scale: 0.05440005287528038
-  zero_point: 7
+  scale: 0.05373499542474747
+  zero_point: 6
 output:
   scale: 0.00390625
   zero_point: -128
