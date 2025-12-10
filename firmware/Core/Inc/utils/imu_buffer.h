@@ -17,15 +17,15 @@
 
 
 typedef struct {
-	float axis_1[WINDOW_SIZE];
-	float axis_2[WINDOW_SIZE];
-	float axis_3[WINDOW_SIZE];
+	int8_t axis_1[WINDOW_SIZE];
+	int8_t axis_2[WINDOW_SIZE];
+	int8_t axis_3[WINDOW_SIZE];
 	uint8_t index;
 } ringBufferIMU;
 
 
-void pushSample(ringBufferIMU* buffer, const float x, const float y, const float z);
-void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*3]);
+void pushSample(ringBufferIMU* buffer, const int8_t x, const int8_t y, const int8_t z);
+void getWindow(ringBufferIMU* buffer, int8_t outBuffer[WINDOW_SIZE*3]);
 
 
 

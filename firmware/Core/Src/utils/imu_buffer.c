@@ -9,7 +9,7 @@
 #include <imu_buffer.h>
 
 
-void pushSample(ringBufferIMU* buffer, const float x, const float y, const float z) {
+void pushSample(ringBufferIMU* buffer, const int8_t x, const int8_t y, const int8_t z) {
 	buffer->axis_1[buffer->index] = x;
 	buffer->axis_2[buffer->index] = y;
 	buffer->axis_3[buffer->index] = z;
@@ -21,7 +21,7 @@ void pushSample(ringBufferIMU* buffer, const float x, const float y, const float
 }
 
 
-void getWindow(ringBufferIMU* buffer, float outBuffer[WINDOW_SIZE*3]) {
+void getWindow(ringBufferIMU* buffer, int8_t outBuffer[WINDOW_SIZE*3]) {
 	uint8_t ringBufferPos = buffer->index;
 
 	for (uint8_t i=0; i<WINDOW_SIZE; ++i) {

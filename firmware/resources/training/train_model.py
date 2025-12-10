@@ -121,7 +121,9 @@ def train_model(
     save_training_plots(history, str(training_plots_dir))
 
     print(f"Evaluating model on test set and saving to {evaluation_dir}")
-    evaluate_model(model, X_test, y_test_o, str(evaluation_dir))
+    float_eval_dir = evaluation_dir / "model-float"
+    float_eval_dir.mkdir(parents=True, exist_ok=True)
+    evaluate_model(model, X_test, y_test_o, str(float_eval_dir))
 
     print(f"Training complete. Outputs in: {out_dir}")
     return model, history
