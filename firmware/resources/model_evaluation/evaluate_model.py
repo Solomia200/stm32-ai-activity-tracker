@@ -19,23 +19,18 @@ def evaluate_model(model, X_test, y_test_onehot, save_dir):
     save_dir : str
         Path to directory where results will be saved. Will be created if it does not exist.
     """
-    # Create directory if it doesn't exist
     os.makedirs(save_dir, exist_ok=True)
     
-    # Convert one-hot labels to class indices
     y_true = np.argmax(y_test_onehot, axis=1)
     
-    # Predict
     y_pred_probs = model.predict(X_test)
     y_pred = np.argmax(y_pred_probs, axis=1)
     
-    # Compute metrics
     acc = accuracy_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred, average='weighted', zero_division=0)
     recall = recall_score(y_true, y_pred, average='weighted', zero_division=0)
     f1 = f1_score(y_true, y_pred, average='weighted', zero_division=0)
     
-    # Save metrics to txt file
     metrics_path = os.path.join(save_dir, "metrics.txt")
     with open(metrics_path, "w") as f:
         f.write("Model Evaluation Metrics\n")

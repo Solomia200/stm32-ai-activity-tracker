@@ -1,6 +1,6 @@
 ST Edge AI Core v2.2.0-20266 2adc00962
-Created date          : 2025-12-10 15:07:23
-Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-50/wl-96-overlap-50-quantized.tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace124848243553856969519036127419705 --output /home/bohdan/.stm32cubemx/network_output
+Created date          : 2025-12-10 22:07:29
+Parameters            : generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-50/wl-96-overlap-50-quantized.tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace3476690608245316752779400962484821 --output /home/bohdan/.stm32cubemx/network_output
 
 Exec/report summary (generate)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11,14 +11,14 @@ compression        :   none
 options            :   allocate-inputs, allocate-outputs                                                                                                                                                   
 optimization       :   balanced                                                                                                                                                                            
 target/series      :   stm32l4                                                                                                                                                                             
-workspace dir      :   /tmp/mxAI_workspace124848243553856969519036127419705                                                                                                                                
+workspace dir      :   /tmp/mxAI_workspace3476690608245316752779400962484821                                                                                                                               
 output dir         :   /home/bohdan/.stm32cubemx/network_output                                                                                                                                            
 model_fmt          :   ss/sa per channel                                                                                                                                                                   
 model_name         :   wl96overlap50quantized                                                                                                                                                              
-model_hash         :   0x1a129778f99b6502dbefac254a2067cb                                                                                                                                                  
+model_hash         :   0x6641486b2180088aa476006e4b29e3da                                                                                                                                                  
 params #           :   36,205 items (36.13 KiB)                                                                                                                                                            
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-input 1/1          :   'serving_default_input_layer0', int8(1x96x3), 288 Bytes, QLinear(0.153794587,0,int8), activations                                                                                   
+input 1/1          :   'serving_default_input_layer0', int8(1x96x3), 288 Bytes, QLinear(0.052613284,3,int8), activations                                                                                   
 output 1/1         :   'nl_21', int8(1x7), 7 Bytes, QLinear(0.003906250,-128,int8), activations                                                                                                            
 macc               :   1,234,160                                                                                                                                                                           
 weights (ro)       :   36,996 B (36.13 KiB) (1 segment) / -107,824(-74.5%) vs float model                                                                                                                  
@@ -148,7 +148,7 @@ c_id   name (*_array)                        item/size     domain/mem-pool      
 24     gemm_20_scratch0                      99/198        activations/**default**   s16                   
 25     gemm_20_weights                       448/448       weights/weights           const s8              
 26     nl_21_output                          7/7           activations/**default**   s8          /output   
-27     nl_21_scratch0                        3/12          activations/**default**   s32                   
+27     nl_21_scratch0                        248/992       activations/**default**   s32                   
 28     pool_18_output                        96/96         activations/**default**   s8                    
 29     pool_6_output                         1472/1472     activations/**default**   s8                    
 30     serving_default_input_layer0_output   288/288       activations/**default**   s8          /input    

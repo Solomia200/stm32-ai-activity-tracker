@@ -91,11 +91,11 @@ const float SD[3] = {
 		2.8230301520167984
 };
 
-const float INPUT_SCALE = 0.15379458665847778f;
-const int INPUT_ZERO_POINT = 0;
+const float INPUT_SCALE = 0.05440005287528038f;
+const int8_t INPUT_ZERO_POINT = 7;
 
-const float OUTPUT_SCALE = 0.0039062500f;
-const int OUTPUT_ZERO_POINT = -128;
+const float OUTPUT_SCALE = 0.00390625f;
+const int8_t OUTPUT_ZERO_POINT = -128;
 
 
 /*
