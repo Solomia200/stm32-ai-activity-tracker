@@ -80,18 +80,18 @@ const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be 
 // Constants for data normalization
 // Each value in the array corresponding axis
 const float MEAN[3] = {
-		-1.6231526426659282,
-		7.501583942737,
-		1.2124681126239438
+		-1.623863970498844,
+		7.498462777772074,
+		1.2019712134121376
 };
 
 const float SD[3] = {
-		4.403413159511435,
-		6.060232171325414,
-		2.8230301520167984
+		4.407136931671239,
+		6.064137149292102,
+		2.836606166942753
 };
 
-const float INPUT_SCALE = 0.05364283546805382f;
+const float INPUT_SCALE = 0.05421698838472366f;
 const int8_t INPUT_ZERO_POINT = 7;
 
 const float OUTPUT_SCALE = 0.00390625f;
@@ -108,7 +108,7 @@ const int8_t OUTPUT_ZERO_POINT = -128;
 6 - "standing"
 */
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
-  "walking", "running", "stairs", "lying", "sitting", "standing"
+  "walking", "running", "stairs down", "stairs up", "rest"
 };
 
 ai_buffer * ai_input;
@@ -204,6 +204,7 @@ int main(void)
       pushSample(&sampleBuffer, axis_1_quantized, axis_2_quantized, axis_3_quantized);
 
       ++samplesWritten;
+      //printf("%d\r\n", samplesWritten);
 
       if (samplesWritten == WINDOW_SIZE) {
         samplesWritten -= STRIDE;
@@ -211,14 +212,14 @@ int main(void)
         getWindow(&sampleBuffer, aiInData);
         AI_Run(aiInData, aiOutData);
 
-//        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
-//          printf("%8.6f ", aiOutData[i]);
-//        }
-//        printf("\r\n");
-
         for (uint8_t i=0; i<AI_NETWORK_OUT_1_SIZE; ++i) {
         	aiOutDataDequantized[i] = dequantize_int8_to_float(aiOutData[i], OUTPUT_SCALE , OUTPUT_ZERO_POINT);
         }
+
+        for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
+          printf("%8.6f ", aiOutDataDequantized[i]);
+        }
+        printf("\r\n");
 
         uint8_t rawPredictionClassIndex = argmax(aiOutDataDequantized, AI_NETWORK_OUT_1_SIZE);
         uint8_t predictionClassIndex = rawPredictionClassIndex;

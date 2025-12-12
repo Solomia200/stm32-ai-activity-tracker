@@ -1840,44 +1840,44 @@
   ],
   "environment": {
     "generated_model": {
-      "generated_time": "2025-12-12T19:32:28+0200",
+      "generated_time": "2025-12-12T18:44:56+0200",
       "model_files": [
         {
           "name": "network_data_params.h",
-          "signature": "0x3ac0e9540576b5a2ef61b8cfec684aca"
+          "signature": "0x65cbbcf420068d6771b7f073fc2c6973"
         },
         {
           "name": "network_data_params.c",
-          "signature": "0x343da0cb2bbf5671f56aa8e23b176f2b"
+          "signature": "0x7e83c759a2855dc69d1c4cefb1a0b915"
         },
         {
           "name": "network_data.h",
-          "signature": "0x15b7f2b23686be6636544d436eb44a83"
+          "signature": "0x6060cb3de6debdff955d54b15fc8ff7d"
         },
         {
           "name": "network_data.c",
-          "signature": "0xbffcaac0ad8a766c0d7ee5f25c71fc94"
+          "signature": "0x0328f971f8903fa6850ec9f9db958ba6"
         },
         {
           "name": "network_config.h",
-          "signature": "0x5570ebda77127c666550edb51d4c6e5d"
+          "signature": "0xae192408ea76131858c3db60a183ed46"
         },
         {
           "name": "network.h",
-          "signature": "0xc5a2b3ac2a68610a5f5a479ad1e4ad61"
+          "signature": "0x4488e075031eacef59b232659634b2ab"
         },
         {
           "name": "network.c",
-          "signature": "0x252828f85da775c2dfc504479a12f4f1"
+          "signature": "0xb6c2e171ccbfb6cb08dff2d6f3d32be9"
         }
       ],
       "name": "network"
     },
-    "network_signature": "0x475d4acb33b1367e",
+    "network_signature": "0x619a47a925394cb4",
     "test_name": "",
     "tools": [
       {
-        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-75-joint-lying-sitting-standing/wl-96-overlap-75-joint-lying-sitting-standing-quantized.tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace460042087419514637757367468293387 --output /home/bohdan/.stm32cubemx/network_output",
+        "arguments": "generate --target stm32l4 --name network -m /home/bohdan/code/poc/human-activity-recognition/stm32-ai-activity-tracker/firmware/resources/trained-models/realworld-dataset/wl-96-overlap-75-joint-lying-sitting-standing/wl-96-overlap-75-joint-lying-sitting-standing-quantized.tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace238751270601512495167046033302872 --output /home/bohdan/.stm32cubemx/network_output",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],

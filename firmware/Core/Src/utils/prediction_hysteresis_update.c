@@ -6,8 +6,8 @@
  */
 
 
-#define PREVIOUS_PREDICTIONS_COUNT_TRESHOLD 3
-#define CONFIDENCE_TRESHOLD 0.8
+#define PREVIOUS_PREDICTIONS_COUNT_TRESHOLD 4
+#define CONFIDENCE_TRESHOLD 0.75
 
 
 #include "prediction_hysteresis_update.h"

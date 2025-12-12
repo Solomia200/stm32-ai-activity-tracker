@@ -18,8 +18,8 @@ class DatasetProcessor:
         "climbingup": 3,
         "jumping": None,
         "lying": 4,
-        "sitting": 5,
-        "standing": 6
+        "sitting": 4,
+        "standing": 4
     }
 
     @staticmethod
