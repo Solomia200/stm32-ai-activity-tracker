@@ -39,6 +39,8 @@
 #include "quantization.h"
 
 #include "gatt_db.h"
+#include "activity_storage.h"
+#include "activity_sync.h"
 
 /* USER CODE END Includes */
 
@@ -171,7 +173,16 @@ int main(void)
   MEMS_Init();
   AI_Init();
   MX_BlueNRG_MS_Init();
-
+  Storage_Init();
+  printf("Dumping all stored records:\n");
+  uint32_t count = Storage_GetRecordCount();
+  for (uint32_t i = 0; i < count; i++) {
+      ActivityRecord r;
+      if (Storage_ReadRecord(i, &r)) {
+          printf("[%lu] time=%lu, class=%u\n",
+                 i, (unsigned long)r.timestamp, r.activity_id);
+      }
+  }
 
 
 
@@ -233,8 +244,12 @@ int main(void)
 													aiOutData[rawPredictionClassIndex]);
 
             if (predictionClassIndex != prevPredictionClassIndex) {
-            	//printf("Class changed: %d\r\n\n", predictionClassIndex);
-                BlueMS_Environmental_Update(0, (int16_t) predictionClassIndex);
+            	printf("Class changed: %d\r\n\n", predictionClassIndex);
+                uint32_t now = HAL_GetTick()/ 1000;
+                Storage_SaveRecord(now, predictionClassIndex);
+                printf("Saved record: time=%lu, class=%d\r\n", now, predictionClassIndex);
+                BlueMS_Environmental_Update(now, (int16_t) predictionClassIndex);
+
                 prevPredictionClassIndex = predictionClassIndex;
             }
 
@@ -246,6 +261,12 @@ int main(void)
       }
 
     }
+    if (g_need_sync) {
+            printf("SYNC requested (g_need_sync=1)\r\n");
+            g_need_sync = 0;
+            BLE_SyncStoredActivities();
+        }
+
 
     MX_BlueNRG_MS_Process();
 
