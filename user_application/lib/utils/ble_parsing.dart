@@ -18,12 +18,19 @@ ActivityEntry parseActivityFromEnvironmentalPacket(List<int> value) {
 
   Activity activity;
   switch (classCode) {
-    case 0: activity = Activity.jogging; break;
-    case 1: activity = Activity.stationary; break;
-    case 2: activity = Activity.stairs; break;
-    case 3: activity = Activity.walking; break;
+    case 0: activity = Activity.walking; break;
+    case 1: activity = Activity.jogging; break;
+    case 2: activity = Activity.climbingdown; break;
+    case 3: activity = Activity.climbingup; break;
+    case 4: activity = Activity.stationary; break;
+
     default: activity = Activity.unknown;
   }
+// 0: "walking",
+//     1: "running",
+//     2: "climbingdown",
+//     3: "climbingup",
+//     4: "resting"
 
   return ActivityEntry(
     timestamp: timeSec,
