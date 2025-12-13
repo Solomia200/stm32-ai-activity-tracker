@@ -7,6 +7,8 @@ import 'dart:async';
 
 
 class ScanViewModel extends ChangeNotifier {
+  Stream<List<ScanResult>> get scanResults => _ble.scanResults;
+
   final custom.BluetoothService _ble;
   ScanViewModel(this._ble) {
     _subs.add(_ble.scanResults.listen((r) {
@@ -24,8 +26,7 @@ class ScanViewModel extends ChangeNotifier {
   List<ScanResult> _results = [];
   List<ScanResult> get results => _results;
 
-  bool _scanning = false;
-  bool get scanning => _scanning;
+
 
   Activity _currentActivity = Activity.unknown;
   Activity get currentActivity => _currentActivity;
@@ -34,15 +35,21 @@ class ScanViewModel extends ChangeNotifier {
   int get currentTimestamp => _currentTimestamp;
 
   Future<void> startScan() async {
-    if (_scanning) return;
-    _scanning = true;
-    notifyListeners();
+    if (FlutterBluePlus.isScanningNow) {
+      debugPrint("Scan already running");
+      return;
+    }
+
     await _ble.startScan();
-    _scanning = false;
-    notifyListeners();
   }
 
-  Future<void> stopScan() => _ble.stopScan();
+
+  Future<void> stopScan() async {
+    if (FlutterBluePlus.isScanningNow) {
+      await _ble.stopScan();
+    }
+  }
+
 
   Future<void> connect(BluetoothDevice d) async {
     await _ble.stopScan();
