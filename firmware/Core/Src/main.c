@@ -111,6 +111,7 @@ const char* activities[AI_NETWORK_OUT_1_SIZE] = {
   "walking", "running", "climbing down", "climbing up", "resting"
 };
 
+volatile uint8_t g_need_sync = 0;
 ai_buffer * ai_input;
 ai_buffer * ai_output;
 /* USER CODE END PV */
