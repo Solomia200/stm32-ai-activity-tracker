@@ -6,6 +6,14 @@ from bleak import BleakScanner, BleakClient
 
 DEVICE_NAME = "BlueNRG"
 
+ID_TO_CLASS_MAPPING: dict[int: str] = {
+    0: "walking",
+    1: "running",
+    2: "climbingdown",
+    3: "climbingup",
+    4: "resting"
+}
+
 
 def parse_prediction_from_ble_data(data: bytearray) -> int:
     """
@@ -68,7 +76,7 @@ async def monitor_predictions():
             """Handle incoming BLE notifications and print predictions."""
             nonlocal prediction_count
             try:
-                predicted_class = parse_prediction_from_ble_data(data)
+                predicted_class = ID_TO_CLASS_MAPPING[parse_prediction_from_ble_data(data)]
                 prediction_count += 1
                 print(f"[{prediction_count:4d}] Prediction: {predicted_class}")
                 
