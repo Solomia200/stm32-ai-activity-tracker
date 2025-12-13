@@ -12,8 +12,8 @@
 #include <stdint.h>
 
 
-#define NUMBER_OF_CLASSES 7
-#define TRACKED_PREDICTIONS 6
+#define NUMBER_OF_CLASSES 5
+#define TRACKED_PREDICTIONS 8
 
 
 typedef struct {

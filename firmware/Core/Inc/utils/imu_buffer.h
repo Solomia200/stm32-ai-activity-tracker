@@ -13,7 +13,7 @@
 
 
 #define WINDOW_SIZE 96
-#define STRIDE 48
+#define STRIDE 24 // overlap 0.75
 
 
 typedef struct {
