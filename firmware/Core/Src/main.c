@@ -36,13 +36,12 @@
 #include "imu_buffer.h"
 #include "prev_predictions_buffer.h"
 #include "prediction_hysteresis_update.h"
+#include "quantization.h"
 
 #include "gatt_db.h"
-
-
-
 #include "activity_storage.h"
 #include "activity_sync.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -71,14 +70,14 @@ volatile uint32_t dataRdyIntReceived;
 ai_handle network;
 
 ringBufferIMU sampleBuffer = {0};
-float aiInData[AI_NETWORK_IN_1_SIZE];
+int8_t aiInData[AI_NETWORK_IN_1_SIZE];
 
-float aiOutData[AI_NETWORK_OUT_1_SIZE];
+int8_t aiOutData[AI_NETWORK_OUT_1_SIZE];
+float aiOutDataDequantized[AI_NETWORK_OUT_1_SIZE];
 ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
 const uint8_t ACCELEROMETR_SAMPLING_RATE = 50; // sampling rate of the accelerometer in Hz
 const uint8_t ACCELERATION_RANGE = 8; // maximum acceleration value that can be measured in g
-
 
 // Constants for data normalization
 // Each value in the array corresponding axis
@@ -93,6 +92,13 @@ const float SD[3] = {
 		6.060232171325414,
 		2.8230301520167984
 };
+
+const float INPUT_SCALE = 0.05440005287528038f;
+const int8_t INPUT_ZERO_POINT = 7;
+
+const float OUTPUT_SCALE = 0.00390625f;
+const int8_t OUTPUT_ZERO_POINT = -128;
+
 
 /*
 0 - "walking"
@@ -110,7 +116,7 @@ const char* activities[AI_NETWORK_OUT_1_SIZE] = {
 ai_buffer * ai_input;
 ai_buffer * ai_output;
 /* USER CODE END PV */
-volatile uint8_t g_need_sync = 0;
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -121,7 +127,7 @@ static void MEMS_Init(void);
 
 static void AI_Init(void);
 
-static void AI_Run(float *pIn, float *pOut);
+static void AI_Run(int8_t *pIn, int8_t *pOut);
 
 /* USER CODE END PFP */
 
@@ -198,11 +204,15 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-      float axis_1 = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
-      float axis_2 = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
-      float axis_3 = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
+      float axis_1_normalized = normalizeAccelerometerOutput(-acc_axes.y, MEAN[0], SD[0]);
+      float axis_2_normalized = normalizeAccelerometerOutput(acc_axes.x, MEAN[1], SD[1]);
+      float axis_3_normalized = normalizeAccelerometerOutput(acc_axes.z, MEAN[2], SD[2]);
 
-      pushSample(&sampleBuffer, axis_1, axis_2, axis_3);
+      int8_t axis_1_quantized = quantize_float_to_int8(axis_1_normalized, INPUT_SCALE, INPUT_ZERO_POINT);
+      int8_t axis_2_quantized = quantize_float_to_int8(axis_2_normalized, INPUT_SCALE, INPUT_ZERO_POINT);
+      int8_t axis_3_quantized = quantize_float_to_int8(axis_3_normalized, INPUT_SCALE, INPUT_ZERO_POINT);
+
+      pushSample(&sampleBuffer, axis_1_quantized, axis_2_quantized, axis_3_quantized);
 
       ++samplesWritten;
 
@@ -217,11 +227,15 @@ int main(void)
 //        }
 //        printf("\r\n");
 
-        uint8_t rawPredictionClassIndex = argmax(aiOutData, AI_NETWORK_OUT_1_SIZE);
+        for (uint8_t i=0; i<AI_NETWORK_OUT_1_SIZE; ++i) {
+        	aiOutDataDequantized[i] = dequantize_int8_to_float(aiOutData[i], OUTPUT_SCALE , OUTPUT_ZERO_POINT);
+        }
+
+        uint8_t rawPredictionClassIndex = argmax(aiOutDataDequantized, AI_NETWORK_OUT_1_SIZE);
         uint8_t predictionClassIndex = rawPredictionClassIndex;
         pushPrediction(&previousPredictionsBuffer, rawPredictionClassIndex);
 
-//        printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
+       printf("Raw prediction class index: %s\r\n", activities[rawPredictionClassIndex]);
 
         if (rawPredictionClassIndex != prevPredictionClassIndex) {
             predictionClassIndex = updatePredictionHysteresis(&previousPredictionsBuffer,
@@ -230,15 +244,14 @@ int main(void)
 													aiOutData[rawPredictionClassIndex]);
 
             if (predictionClassIndex != prevPredictionClassIndex) {
-                        	printf("Class changed: %d\r\n\n", predictionClassIndex);
-                        	uint32_t now = HAL_GetTick()/ 1000;
+            	printf("Class changed: %d\r\n\n", predictionClassIndex);
+                uint32_t now = HAL_GetTick()/ 1000;
+                Storage_SaveRecord(now, predictionClassIndex);
+                printf("Saved record: time=%lu, class=%d\r\n", now, predictionClassIndex);
+                BlueMS_Environmental_Update(now, (int16_t) predictionClassIndex);
 
-                        	Storage_SaveRecord(now, predictionClassIndex);
-                        	printf("Saved record: time=%lu, class=%d\r\n", now, predictionClassIndex);
-                            BlueMS_Environmental_Update(now, (int16_t) predictionClassIndex);
-
-                            prevPredictionClassIndex = predictionClassIndex;
-                        }
+                prevPredictionClassIndex = predictionClassIndex;
+            }
 
         } else {
             predictionClassIndex = prevPredictionClassIndex;
@@ -253,6 +266,7 @@ int main(void)
             g_need_sync = 0;
             BLE_SyncStoredActivities();
         }
+
 
     MX_BlueNRG_MS_Process();
 
@@ -733,7 +747,7 @@ static void AI_Init(void)
 /*...*/
 
 
-static void AI_Run(float *pIn, float *pOut)
+static void AI_Run(int8_t *pIn, int8_t *pOut)
 
 {
 
