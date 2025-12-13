@@ -7,8 +7,8 @@ It uses a 1D Convolutional Neural Network (1D-CNN) to classify human movements b
 ## Features
 
 * **On-Device AI:** Performs all model inference directly on the microcontroller (Edge AI) using X-CUBE-AI.
-* **Real-Time Recognition:** Classifies 7 different activities from sensor data.
-* **Low Power:** Optimized to run on a low-power STM32L4xx series MCU.
+* **Real-Time Recognition:** Classifies 5 different activities (Rest, Walking, Running, Stairs Up, Stairs Down) from sensor data.
+* **Low Power:** Optimized to run on a low-power STM32L4xx series MCU with efficient power management.
 * **BLE Communication:** Transmits the recognized activity label to a mobile device.
 
 ## Hardware
@@ -28,7 +28,7 @@ The repository is divided into three main parts:
     * `*.ioc`: The STM32CubeMX configuration file.
 
 2.  **`firmware/resources/`**: The Python environment for training the neural network.
-    * `datasets/`: Contains the StrengthSense dataset (or scripts to process it).
+    * `datasets/`: Contains the RealWorld dataset (or scripts to process it).
     * `processing/`: Python scripts for data preprocessing (filtering, windowing, normalization).
     * `model.py`: The Keras/TensorFlow definition of the 1D-CNN.
     * `evaluate_model.py`: Script to test the model and generate metrics.
@@ -36,13 +36,13 @@ The repository is divided into three main parts:
 
 ## Model Details
 
-The model is a 1D-CNN optimized for memory efficiency.
+The model is a 1D-CNN optimized for memory efficiency using post-training quantization (8-bit integers).
 
-* **Dataset:** StrengthSense (from Aalto University)
-* **Input:** A window of 96 samples (approx. 2 seconds at 52 Hz) from the 3-axis accelerometer.
-* **Output:** One of 7 different activities.
-* **Performance:** Achieves an overall accuracy of **84.87%** on the test set.
-* **Footprint:** The model is highly efficient, requiring minimal RAM (~17-21 KiB) and Flash (~141 KiB) on the MCU.
+* **Dataset:** RealWorld dataset (inertial sensor data from upper arm, wrist, and chest).
+* **Input:** A window of 96 samples (approx. 2 seconds at 50 Hz) from the 3-axis accelerometer.
+* **Output:** One of 5 different activities.
+* **Performance:** Achieves an overall accuracy of **94.22%** on the test set.
+* **Footprint:** The model is highly efficient, requiring minimal RAM (~18.33 KiB) and Flash (~77.19 KiB) on the MCU.
 
 ## Authors
 
