@@ -5,10 +5,10 @@ A wearable activity tracker that recognizes human movements in real-time using a
 > **For full technical details, see our [IEEE-style paper](paper/paper.tex).**
 
 <p align="center">
-  <img src="images/dataflow.jpg" alt="System Dataflow" width="700"/>
-  <br>
-  <em>Fig. 1: Complete system dataflow - from sensor to mobile app</em>
+  <img src="./images/dataflow.jpg" alt="System Dataflow" width="700"/>
 </p>
+
+*Fig. 1: Complete system dataflow — from sensor to mobile app*
 
 ## What It Does
 
@@ -33,10 +33,10 @@ Data is sent via Bluetooth to a Flutter mobile app for visualization and history
 We trained a 1D Convolutional Neural Network on the [RealWorld dataset](https://www.uni-mannheim.de/dws/research/projects/activity-recognition/dataset/dataset-realworld/) and deployed it using X-CUBE-AI.
 
 <p align="center">
-  <img src="images/model_architecture_light_theme.png" alt="Model Architecture" width="600"/>
-  <br>
-  <em>Fig. 2: 1D-CNN architecture with Conv1D, pooling, and dense layers</em>
+  <img src="./images/model_architecture_light_theme.png" alt="Model Architecture" width="600"/>
 </p>
+
+*Fig. 2: 1D-CNN architecture with Conv1D, pooling, and dense layers*
 
 **Key specs:**
 | Metric | Value |
@@ -50,18 +50,18 @@ We trained a 1D Convolutional Neural Network on the [RealWorld dataset](https://
 The model uses 8-bit quantization to fit comfortably on the MCU while maintaining accuracy.
 
 <p align="center">
-  <img src="images/training_pipeline.png" alt="Training Pipeline" width="600"/>
-  <br>
-  <em>Fig. 3: Training pipeline - preprocessing, training, and quantization</em>
+  <img src="./images/training_pipeline.png" alt="Training Pipeline" width="600"/>
 </p>
+
+*Fig. 3: Training pipeline — preprocessing, training, and quantization*
 
 ## Results
 
 <p align="center">
-  <img src="images/confusion_matrix.png" alt="Confusion Matrix" width="500"/>
-  <br>
-  <em>Fig. 4: Confusion matrix on test set (94.22% accuracy)</em>
+  <img src="./images/confusion_matrix.png" alt="Confusion Matrix" width="500"/>
 </p>
+
+*Fig. 4: Confusion matrix on test set (94.22% accuracy)*
 
 ## Project Structure
 
