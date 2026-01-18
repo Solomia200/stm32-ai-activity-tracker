@@ -12,7 +12,7 @@
 void initPrevPredictionBuffer(prevPredictionsBuffer* buffer) {
     memset(buffer->arr, 0, sizeof(buffer->arr));
     memset(buffer->freqClassCount, 0, sizeof(buffer->freqClassCount));
-    buffer->freqClassCount[0] = 8;
+    buffer->freqClassCount[0] = 11;
     buffer->index = 0;
 }
 
