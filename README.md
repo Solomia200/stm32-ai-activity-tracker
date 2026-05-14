@@ -25,7 +25,7 @@ Data is sent via Bluetooth to a Flutter mobile app for visualization and history
 
 - **Board:** STM32L475 IoT Discovery Kit (B-L475E-IOT01A1)
 - **Sensor:** LSM6DSL accelerometer (50 Hz sampling)
-- **Battery:** 3.7V 4000mAh Li-Pol (~48 hours of autonomy)
+- **Battery:** 3.7V 4000mAh Li-Pol
 - **Case:** Custom 3D-printed arm mount
 
 ## The Model
