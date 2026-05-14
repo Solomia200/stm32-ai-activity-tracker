@@ -24,3 +24,19 @@ Release/
 *.elf
 *.hex
 *.bin
+
+# LaTeX
+paper/*.aux
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.synctex.gz
+paper/*.pdf
+paper/pdflatex*.fls
+paper/*.toc
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.dvi
+paper/*.ps
+
